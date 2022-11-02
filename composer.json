@@ -1,0 +1,17 @@
+{
+    "name": "teamone/anim-assoc",
+    "description": "Il faut sauver les z'animaux !",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/",
+            "Routes\\": "routes/"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "nesbot/carbon": "^2.62",
+        "fakerphp/faker": "^1.20"
+    }
+}
