@@ -1,13 +1,15 @@
 <?php
+
 namespace App\Controller;
 
 use App\Model\UserModel;
 use Exception;
 
-class UserController{
+class UserController
+{
 
     private UserModel $model;
-    
+
     /**
      * Instancie les objets dont on a besoin dans toutes nos méthodes
      */
@@ -22,14 +24,15 @@ class UserController{
      * @return string|false
      * @throws Exception
      */
-    public function index(): string|bool
+    public function index(): void
     {
-        try{
-            return json_encode($this->model->findAll());
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
+        header('Content-type:application/json;charset=utf-8');
 
+        try {
+            echo json_encode($this->model->findAll());
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -46,9 +49,5 @@ class UserController{
             throw new \UnexpectedValueException("L'id attendu doit être un integer!");
         }
         $category = $this->model->find($id);
-
-        $this->render("category/show", [
-            'category' => $category
-        ]);
     }
 }

@@ -1,7 +1,11 @@
 <?php
+
 namespace Core\Database;
 
-class Database {
+use Exception;
+
+class Database
+{
 
     /**
      * host de la BDD
@@ -54,7 +58,7 @@ class Database {
             $this->getConfig();
             $this->pdo = new \PDO(
                 "mysql:host=$this->host;dbname=$this->dbname",
-                $this->user, 
+                $this->user,
                 $this->password,
                 [
                     \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
@@ -72,8 +76,8 @@ class Database {
      */
     private function getConfig(): void
     {
-        if (file_exists(ROOT. "/config/dbConfig.php")) {
-            require_once ROOT. "/config/dbConfig.php";
+        if (file_exists(ROOT . "/config/dbConfig.php")) {
+            require_once ROOT . "/config/dbConfig.php";
             $this->host = $dbConfig['host'];
             $this->dbname = $dbConfig['db'];
             $this->user = $dbConfig['user'];
@@ -98,19 +102,23 @@ class Database {
      *
      * @param string $stmt requête à exécuter
      * @param boolean $one définit si une seule donnée est à récupérer ou non
-     * @return array<object>|object
+     * @return array<object>|object$e->getMessage()
      */
-    protected function getData (string $stmt, bool $one = false): array|object
+    protected function getData(string $stmt, bool $one = false): array|object
     {
-        $query = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\". $this->entity);
+        if (!isset($this->pdo)) {
+            throw new Exception("La base de donnée n'est pas accessible pour le moment");
+        }
+
+        $query = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\" . $this->entity);
         if ($one) {
             $data = $query->fetch();
         } else {
             $data = $query->fetchAll();
         }
 
-        return $data ? 
-            $data : 
+        return $data ?
+            $data :
             throw new \Exception("Aucune donnée n'a été trouvée");
     }
 }
