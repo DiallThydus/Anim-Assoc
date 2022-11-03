@@ -29,9 +29,11 @@ class UserController
         header('Content-type:application/json;charset=utf-8');
 
         try {
+            http_response_code(200);
             echo json_encode($this->model->findAll());
         } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
+            http_response_code($e->getCode());
+            echo json_encode($e->getMessage());
         }
     }
 

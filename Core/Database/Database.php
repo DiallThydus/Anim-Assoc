@@ -107,7 +107,7 @@ class Database
     protected function getData(string $stmt, bool $one = false): array|object
     {
         if (!isset($this->pdo)) {
-            throw new Exception("La base de donnée n'est pas accessible pour le moment");
+            throw new Exception("La base de donnée n'est pas accessible pour le moment", 500);
         }
 
         $query = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\" . $this->entity);
