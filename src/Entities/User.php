@@ -3,29 +3,31 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use JsonSerializable;
 
-class User
+class User implements JsonSerializable
 {
     /**
      * User's id
      * PRIMARY KEY UNSIGNED NOT NULLABLE
      *
-     * @var integer
+     * @var integer $id
      */
     private int $id;
+
     /**
      * The user's last name.
      * string 255 NOT NULLABLE
-     * @var string $lastName
+     * @var string $last_name
      */
-    private string $lastName;
+    private string $last_name;
 
     /**
      * The user's first name.
      * string 255 NOT NULLABLE
-     * @var string $firstName
+     * @var string $first_name
      */
-    private string $firstName;
+    private string $first_name;
 
     /**
      * The user's email address.
@@ -37,9 +39,9 @@ class User
     /**
      * If the user's email is verified.
      * boolean default 0
-     * @var boolean $isEmailVerified
+     * @var boolean $email_verified
      */
-    private bool $isEmailVerified;
+    private bool $email_verified;
 
     /**
      * The user's password.
@@ -58,9 +60,9 @@ class User
     /**
      * The user's ZIP code.
      * string 6 NOT NULLABLE
-     * @var string $zipCode
+     * @var string $zip_code
      */
-    private string $postCode;
+    private string $zip_code;
 
     /**
      * The user's city.
@@ -72,9 +74,9 @@ class User
     /**
      * The user's phone number.
      * string 10 NULLABLE default NULL
-     * @var string $phoneNumber
+     * @var string $phone_number
      */
-    private string $phoneNumber;
+    private string $phone_number;
 
     /**
      * The user's role.
@@ -93,16 +95,27 @@ class User
     /**
      * The user's creation date.
      * datetime NULLABLE default NULL
-     * @var string|null $created_at
+     * @var string|null $date_creation
      */
-    private ?string $created_at;
+    private ?string $date_creation;
 
     /**
      * The user's update date.
      * datetime NULLABLE default NULL
-     * @var string|null $updated_at
+     * @var string|null $date_updated
      */
-    private ?string $updated_at;
+    private ?string $date_updated;
+
+
+    /**
+     * Get the value of id
+     *
+     * @return  integer
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * Get the user's last name.
@@ -111,18 +124,18 @@ class User
      */
     public function getLastName(): string
     {
-        return strtoupper($this->lastName);
+        return strtoupper($this->last_name);
     }
 
     /**
      * Set the user's last name.
      *
-     * @param string $lastName
+     * @param string $last_name
      * @return User
      */
-    public function setLastName(string $lastName): self
+    public function setLastName(string $last_name): self
     {
-        $this->lastName = \strtolower($lastName);
+        $this->last_name = \strtolower($last_name);
 
         return $this;
     }
@@ -134,18 +147,18 @@ class User
      */
     public function getFirstName(): string
     {
-        return ucfirst($this->firstName);
+        return ucfirst($this->first_name);
     }
 
     /**
      * Set the user's first name.
      *
-     * @param string $firstName
+     * @param string $first_name
      * @return User
      */
-    public function setFirstName(string $firstName): self
+    public function setFirstName(string $first_name): self
     {
-        $this->firstName = \strtolower($firstName);
+        $this->first_name = \strtolower($first_name);
 
         return $this;
     }
@@ -180,18 +193,18 @@ class User
      */
     public function getIsEmailVerified(): bool
     {
-        return $this->isEmailVerified;
+        return $this->email_verified;
     }
 
     /**
      * Set if the user's email is verified.
      *
-     * @param boolean $isEmailVerified
+     * @param bool $email_verified
      * @return User
      */
-    public function setIsEmailVerified(bool $isEmailVerified): self
+    public function setIsEmailVerified(bool $email_verified): self
     {
-        $this->isEmailVerified = $isEmailVerified;
+        $this->email_verified = $email_verified;
 
         return $this;
     }
@@ -199,12 +212,11 @@ class User
     /**
      * Check user's password.
      *
-     * @param $password
      * @return string
      */
-    public function checkPassword($password): string
+    public function getPassword(): string
     {
-        return \password_verify($password, $this->password);
+        return $this->password;
     }
 
     /**
@@ -236,7 +248,7 @@ class User
      * @param string $address
      * @return User
      */
-    public function address(string $address): self
+    public function setAddress(string $address): self
     {
         $this->address = \strtolower($address);
 
@@ -250,18 +262,18 @@ class User
      */
     public function getZipCode(): string
     {
-        return \strtoupper($this->zipCode);
+        return \strtoupper($this->zip_code);
     }
 
     /**
      * Set the user's ZIP code.
      *
-     * @param string $zipCode
+     * @param string $zip_code
      * @return User
      */
-    public function setZipCode(string $zipCode): self
+    public function setZipCode(string $zip_code): self
     {
-        $this->zipCode = \strtolower($zipCode);
+        $this->zip_code = \strtolower($zip_code);
 
         return $this;
     }
@@ -296,18 +308,18 @@ class User
      */
     public function getPhoneNumber(): string
     {
-        return wordwrap($this->phoneNumber, 2, ' ', true);
+        return wordwrap($this->phone_number, 2, ' ', true);
     }
 
     /**
      * Set the user's phone number.
      *
-     * @param string $phoneNumber
+     * @param string $phone_number
      * @return User
      */
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(string $phone_number): self
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
 
         return $this;
     }
@@ -353,7 +365,7 @@ class User
      */
     public function setDonation(float $donation): self
     {
-        $this->donation = $this->donation + $donation;
+        $this->donation = $donation;
 
         return $this;
     }
@@ -361,23 +373,22 @@ class User
     /**
      * Get the user's creation date.
      *
-     * @return string
+     * @return string|null
      */
-    public function getCreated_at(): string
+    public function getDateCreation(): string|null
     {
-        var_dump('hello');
-        return $this->created_at;
+        return $this->date_creation;
     }
 
     /**
      * Set the user's creation date.
      *
-     * @param string $created_at
+     * @param string|null $date_creation
      * @return User
      */
-    public function setCreated_at(string $created_at): self
+    public function setDateCreation(string|null $date_creation): self
     {
-        $this->created_at = $created_at;
+        $this->date_creation = $date_creation;
 
         return $this;
     }
@@ -385,23 +396,75 @@ class User
     /**
      * Get the user's update date.
      *
-     * @return Carbon
+     * @return string|null
      */
-    public function getUpdated_at(): string
+    public function getDateUpdated(): string|null
     {
-        return $this->updated_at;
+        return $this->date_updated;
     }
 
     /**
      * Set the user's update date.
      *
-     * @param string $updated_at
+     * @param string|null $date_updated
      * @return User
      */
-    public function setUpdated_at(string $updated_at): self
+    public function setDateUpdated(string|null $date_updated): self
     {
-        $this->updated_at = $updated_at;
+        $this->date_updated = $date_updated;
 
         return $this;
+    }
+
+    public function hydrate($data = [])
+    {
+        var_dump('pouet');
+        var_dump('<br>');
+        foreach ($data as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
+    public function __invoke(): array
+    {
+
+        $array = array();
+        $methods = get_class_methods($this);
+
+        foreach ($methods as $method) {
+            if (str_contains($method, 'get')) {
+                $key = strtolower(substr($method, 3));
+                if (method_exists($this, $method) && $method !== 'getId') {
+                    $array[$key] = $this->$method();
+                }
+            }
+        }
+        // foreach ($this as $key => $value) {
+        //     if ($key !== 'id') {
+        //         $array[$key] = $value;
+        //     }
+        // }
+        return $array;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'lastName' => $this->getLastName(),
+            'firstName' => $this->getFirstName(),
+            'email' => $this->getEmail(),
+            'isEmailVerified' => $this->getIsEmailVerified(),
+            'address' => $this->getAddress(),
+            'zipCode' => $this->getZipCode(),
+            'city' => $this->getCity(),
+            'phoneNumber' => $this->getPhoneNumber(),
+            'role' => $this->getRole(),
+            'donation' => $this->getDonation(),
+            'dateCreation' => $this->getDateCreation(),
+            'dateUpdated' => $this->getDateUpdated(),
+        ];
     }
 }
