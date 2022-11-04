@@ -15,7 +15,3 @@ require ROOT. "/vendor/autoload.php";
 (new UserController)->show();
 
 
-
-
-
-
