@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use Exception;
+use PDO;
 
 class Database
 {
@@ -38,9 +39,9 @@ class Database
     /**
      * Connexion à la BDD
      *
-     * @var \PDO|null
+     * @var PDO|null
      */
-    protected ?\PDO $pdo;
+    protected ?PDO $pdo;
 
     /**
      * Nom de l'entité associée au chargement des données
@@ -56,12 +57,12 @@ class Database
     {
         try {
             $this->getConfig();
-            $this->pdo = new \PDO(
+            $this->pdo = new PDO(
                 "mysql:host=$this->host;dbname=$this->dbname",
                 $this->user,
                 $this->password,
                 [
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]
             );
         } catch (\PDOException $e) {
@@ -90,9 +91,9 @@ class Database
     /**
      * Retourne l'instance de connexion à la BDD
      *
-     * @return \PDO|null
+     * @return PDO|null
      */
-    public function getPdo(): ?\PDO
+    public function getPdo(): ?PDO
     {
         return $this->pdo;
     }
@@ -100,9 +101,10 @@ class Database
     /**
      * Récupère les données en BDD
      *
-     * @param string $stmt requête à exécuter
-     * @param boolean $one définit si une seule donnée est à récupérer ou non
-     * @return array<object>|object$e->getMessage()
+     * @param string $stmt
+     * @param boolean $one
+     * @return array<object>|object
+     * @throws Exception
      */
     protected function getData(string $stmt, bool $one = false): array|object
     {
@@ -110,15 +112,14 @@ class Database
             throw new Exception("La base de donnée n'est pas accessible pour le moment", 500);
         }
 
-        $query = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\" . $this->entity);
+        $query = $this->pdo->query($stmt, PDO::FETCH_CLASS, "App\Entities\\" . $this->entity);
         if ($one) {
             $data = $query->fetch();
         } else {
             $data = $query->fetchAll();
         }
 
-        return $data ?
-            $data :
-            throw new \Exception("Aucune donnée n'a été trouvée");
+        return (! empty($data) ? $data : []);
     }
+
 }

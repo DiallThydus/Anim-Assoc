@@ -1,11 +1,8 @@
 <?php
 
-use App\Controller\UserController;
-use App\Fixtures\AppFixtures;
-use App\Manager\CategoryManager;
-use App\Manager\PostManager;
+use App\Controllers\UserController;
 
-define("ROOT", __DIR__);
+const ROOT = __DIR__;
 require ROOT. "/vendor/autoload.php";
 
 // Charge de fausses données en BDD pour les tests
@@ -15,8 +12,7 @@ require ROOT. "/vendor/autoload.php";
 // Affiche notre page de catégories
 // (new CategoryManager)->getCategories();
 // (new PostManager)->getPosts();
-(new UserController)->index();
-// (new UserController)->show();
+(new UserController)->show();
 
 
 

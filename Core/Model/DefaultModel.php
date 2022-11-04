@@ -16,7 +16,8 @@ class DefaultModel extends Database {
      */
     public function findAll(): array
     {
-        $stmt = "SELECT * FROM ". $this->table; 
+        $stmt = "SELECT * FROM ". $this->table;
+
         return $this->getData($stmt);
     }
 
@@ -27,9 +28,9 @@ class DefaultModel extends Database {
      * @return object
      * @throws Exception
      */
-    public function find(int $id): object
+    public function find(int $id): array|object
     {
-        $stmt = "SELECT * FROM ". $this->table . "WHERE id = $id"; 
+        $stmt = "SELECT * FROM " . $this->table . " WHERE id = " .$id;
         return $this->getData($stmt, true);
     }
 }

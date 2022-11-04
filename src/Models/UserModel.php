@@ -1,10 +1,10 @@
 <?php
-namespace App\Model;
+namespace App\Models;
 
 use Core\Model\DefaultModel;
 
 /**
- * Model permettant de récupérer les catégories
+ * get users
  * 
  * @method array<object> findAll()
  * @method object find(int $id)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entities;
 
 use Carbon\Carbon;
 
@@ -58,7 +58,7 @@ class User
     /**
      * The user's ZIP code.
      * string 6 NOT NULLABLE
-     * @var string $postCode
+     * @var string $zipCode
      */
     private string $postCode;
 
@@ -118,11 +118,13 @@ class User
      * Set the user's last name.
      *
      * @param string $lastName
-     * @return void
+     * @return User
      */
-    public function setLastName(string $lastName): void
+    public function setLastName(string $lastName): self
     {
         $this->lastName = \strtolower($lastName);
+
+        return $this;
     }
 
     /**
@@ -139,11 +141,13 @@ class User
      * Set the user's first name.
      *
      * @param string $firstName
-     * @return void
+     * @return User
      */
-    public function setFirstName(string $firstName): void
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = \strtolower($firstName);
+
+        return $this;
     }
 
     /**
@@ -160,11 +164,13 @@ class User
      * Set the user's email address.
      *
      * @param string $email
-     * @return void
+     * @return User
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email): self
     {
         $this->email = \strtolower($email);
+
+        return $this;
     }
 
     /**
@@ -181,11 +187,13 @@ class User
      * Set if the user's email is verified.
      *
      * @param boolean $isEmailVerified
-     * @return void
+     * @return User
      */
-    public function setIsEmailVerified(bool $isEmailVerified): void
+    public function setIsEmailVerified(bool $isEmailVerified): self
     {
         $this->isEmailVerified = $isEmailVerified;
+
+        return $this;
     }
 
     /**
@@ -203,11 +211,13 @@ class User
      * Set the user's password.
      *
      * @param string $password
-     * @return void
+     * @return User
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password): self
     {
         $this->password = \password_hash($password, PASSWORD_ARGON2I);
+
+        return $this;
     }
 
     /**
@@ -224,11 +234,13 @@ class User
      * Set the user's address.
      *
      * @param string $address
-     * @return void
+     * @return User
      */
-    public function address(string $address): void
+    public function address(string $address): self
     {
         $this->address = \strtolower($address);
+
+        return $this;
     }
 
     /**
@@ -236,20 +248,22 @@ class User
      *
      * @return string
      */
-    public function getPostCode(): string
+    public function getZipCode(): string
     {
-        return \strtoupper($this->postCode);
+        return \strtoupper($this->zipCode);
     }
 
     /**
      * Set the user's ZIP code.
      *
-     * @param string $postCode
-     * @return void
+     * @param string $zipCode
+     * @return User
      */
-    public function setPostCode(string $postCode): void
+    public function setZipCode(string $zipCode): self
     {
-        $this->postCode = \strtolower($postCode);
+        $this->zipCode = \strtolower($zipCode);
+
+        return $this;
     }
 
     /**
@@ -266,11 +280,13 @@ class User
      * Set the user's city.
      *
      * @param string $city
-     * @return void
+     * @return User
      */
-    public function setCity(string $city): void
+    public function setCity(string $city): self
     {
         $this->city = \strtolower($city);
+
+        return $this;
     }
 
     /**
@@ -287,11 +303,13 @@ class User
      * Set the user's phone number.
      *
      * @param string $phoneNumber
-     * @return void
+     * @return User
      */
-    public function setPhoneNumber(string $phoneNumber): void
+    public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
     }
 
     /**
@@ -308,11 +326,13 @@ class User
      * Set the user's role.
      *
      * @param integer $role
-     * @return void
+     * @return User
      */
-    public function setRole(int $role): void
+    public function setRole(int $role): self
     {
         $this->role = $role;
+
+            return $this;
     }
 
     /**
@@ -329,11 +349,13 @@ class User
      * Set the user's donation.
      *
      * @param float $donation
-     * @return void
+     * @return User
      */
-    public function setDonation(float $donation): void
+    public function setDonation(float $donation): self
     {
         $this->donation = $this->donation + $donation;
+
+        return $this;
     }
 
     /**
@@ -350,11 +372,13 @@ class User
      * Set the user's creation date.
      *
      * @param Carbon $created_at
-     * @return void
+     * @return User
      */
-    public function setCreated_at(Carbon $created_at): void
+    public function setCreated_at(Carbon $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
     }
 
     /**
@@ -371,10 +395,12 @@ class User
      * Set the user's update date.
      *
      * @param Carbon $updated_at
-     * @return void
+     * @return User
      */
-    public function setUpdated_at(Carbon $updated_at): void
+    public function setUpdated_at(Carbon $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
     }
 }
