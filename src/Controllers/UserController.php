@@ -45,6 +45,7 @@ class UserController
                 throw new \UnexpectedValueException("L'id attendu doit être un integer!", 500);
             }
             $id = intval($_GET['id']);
+            var_dump($this->model->find($id));
             Responser::response($this->model->find($id));
         } catch (Exception $e){
             Responser::response([$e->getMessage()], $e->getCode());

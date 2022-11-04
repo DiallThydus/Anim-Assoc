@@ -93,16 +93,16 @@ class User
     /**
      * The user's creation date.
      * datetime NULLABLE default NULL
-     * @var Carbon $created_at
+     * @var string|null $created_at
      */
-    private Carbon $created_at;
+    private ?string $created_at;
 
     /**
      * The user's update date.
      * datetime NULLABLE default NULL
-     * @var Carbon $updated_at
+     * @var string|null $updated_at
      */
-    private Carbon $updated_at;
+    private ?string $updated_at;
 
     /**
      * Get the user's last name.
@@ -361,20 +361,21 @@ class User
     /**
      * Get the user's creation date.
      *
-     * @return Carbon
+     * @return string
      */
-    public function getCreated_at(): Carbon
+    public function getCreated_at(): string
     {
+        var_dump('hello');
         return $this->created_at;
     }
 
     /**
      * Set the user's creation date.
      *
-     * @param Carbon $created_at
+     * @param string $created_at
      * @return User
      */
-    public function setCreated_at(Carbon $created_at): self
+    public function setCreated_at(string $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -386,7 +387,7 @@ class User
      *
      * @return Carbon
      */
-    public function getUpdated_at(): Carbon
+    public function getUpdated_at(): string
     {
         return $this->updated_at;
     }
@@ -394,10 +395,10 @@ class User
     /**
      * Set the user's update date.
      *
-     * @param Carbon $updated_at
+     * @param string $updated_at
      * @return User
      */
-    public function setUpdated_at(Carbon $updated_at): self
+    public function setUpdated_at(string $updated_at): self
     {
         $this->updated_at = $updated_at;
 

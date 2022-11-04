@@ -25,12 +25,13 @@ class DefaultModel extends Database {
      * Retourne un objet en fonction de son id
      *
      * @param integer $id
-     * @return object
+     * @return array|object
      * @throws Exception
      */
     public function find(int $id): array|object
     {
         $stmt = "SELECT * FROM " . $this->table . " WHERE id = " .$id;
+
         return $this->getData($stmt, true);
     }
 }
