@@ -1,18 +1,12 @@
 import React from 'react';
-
 // import { Image } from 'react-native';
 
-// // @ts-ignore
+
 // import BoraBora from '../assets/borabora.jpg';
-// // @ts-ignore
 // import BoraBora2 from '../assets/borabora2.jpg';
-// // @ts-ignore
 // import Maldives from '../assets/maldives.jpg';
-// @ts-ignore
-import Maldives3 from "../assets/maldives3.jpeg";
-// // @ts-ignore
-// import Maldives2 from './maldives2.jpeg';
-// // @ts-ignore
+// import Maldives3 from "./assets/maldives3.jpeg";
+// import Maldives2 from './maldives3.jpeg';
 // import KeyWest from '../assets/keywest.jpg';
 import Anim from './Anim';
 
@@ -20,14 +14,14 @@ const Adoption = () => {
   return (
     <div className='max-w-[1240px] mx-auto px-4 py-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4'>
 
-    {/* <Anim bg={BoraBora} text='Bora Bora' />
+      {/* <Anim bg={BoraBora} text='Bora Bora' />
     <Anim bg={BoraBora2} text='Maldives' />
     <Anim bg={Maldives} text='Antigua' />
-    <Anim bg={Maldives2} text='Cozumel' /> */}
+    <Anim bg={Maldives2} text='Cozumel' />
     <Anim bg={Maldives3} text='Jamaica' />
-    {/* <Anim bg={KeyWest} text='Key West' /> */}
-    
-        <p>hello</p>
+    <Anim bg={KeyWest} text='Key West' /> */}
+
+      <p>hello</p>
     </div>
   )
 }
