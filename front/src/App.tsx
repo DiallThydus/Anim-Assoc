@@ -6,6 +6,8 @@ import Signin from './components/auth/Signin';
 import Adoption from './components/card/Adoption';
 import Home from './components/home/Home';
 import Navbar from "./components/navbar/Navbar";
+import Adoption from './components/card/Adoption';
+import Anim from './components/card/Anim';
 
 import './App.css';
 import ProjectCart from "./components/Project/ProjectCart";
