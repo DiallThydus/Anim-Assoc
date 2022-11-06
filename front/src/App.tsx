@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Navbar from "./components/navbar/Navbar";
+
 import Login from './components/auth/Login';
 import Signin from './components/auth/Signin';
+import Cart from "./components/Cart/Cart";
+
 import Home from './components/home/Home';
-import Navbar from "./components/navbar/Navbar";
-import PageAnimaux from './components/card/PageAnimaux';
-import FicheAnimal from './components/card/FicheAnimal';
-import Cart from "./components/card/cart";
+import ListAnimals from './components/Animals/ListAnimals';
+import DetailsAnimal from "./components/Animals/DetailsAnimal";
 
 import './App.css';
-import ProjectCart from "./components/Project/ProjectCart";
-// import ProjectListing from "./components/Project/ProjectListing";
 
 function App() {
 	return (
@@ -20,13 +20,16 @@ function App() {
 				<Routes>
 					<Route path="/">
 						<Route index element={<Home />} />
-						<Route path="login" element={<Login />} />
-						<Route path="signin" element={<Signin />} />
-						<Route path="PageAnimaux" element={<PageAnimaux />} />
-						<Route path="FicheAnimal" element={<FicheAnimal animal={undefined} index={undefined} />} />
-						<Route path="Cart" element={<Cart />} />
-						{/* <Route path="ProjectCart" element={<ProjectCart />} /> */}
-						{/* <Route path="ProjectListing" element={<ProjectListing />} /> */}
+
+						<Route path="/login" element={<Login />} />
+						<Route path="/signin" element={<Signin />} />
+
+						<Route path="/animals" element={<ListAnimals />} />
+						<Route path="/animals/:animalId" element={<DetailsAnimal />} />
+
+						<Route path="/cart" element={<Cart />} />
+
+						<Route path="*" element={<NoPageFound />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
@@ -38,7 +41,7 @@ function NoPageFound() {
 	return (
 		<div className="flex flex-col space-y-4 text-center">
 			<h1 className="text-3xl">404 | Not Found</h1>
-			<p>La page que vous cherchez est introuvable.</p>
+			<p>Could not find the page</p>
 		</div>
 	);
 }
