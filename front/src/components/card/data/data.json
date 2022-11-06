@@ -1,32 +1,32 @@
 {
-    "challenges": [
+    "animals": [
     {
-    "id": "tca1do",
-    "name": "Tip Calculator App",
+    "id": "1",
+    "name": "Chien",
     "image": ""
     },
     {
-    "id": "gusa2df",
-    "name": "GitHub User Search App",
+    "id": "2",
+    "name": "Chat",
     "image": ""
     },
     {
-    "id": "osc3do",
-    "name": "Order Summary Component",
+    "id": "3",
+    "name": "Rongeur",
     "image": ""
     },
     {
-    "id": "ttd4do",
+    "id": "4",
     "name": "Time Tracking Dashboard",
     "image": ""
     },
     {
-    "id": "ipc5do",
+    "id": "5",
     "name": "Interactive pricing component",
     "image": ""
     },
     {
-    "id": "iat6df",
+    "id": "6",
     "name": "IP Address Tracker",
     "image": ""
     }

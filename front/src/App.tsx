@@ -23,9 +23,9 @@ function App() {
 						<Route path="login" element={<Login />} />
 						<Route path="signin" element={<Signin />} />
 						<Route path="PageAnimaux" element={<PageAnimaux />} />
-						<Route path="FicheAnimal" element={<FicheAnimal />} />
+						<Route path="FicheAnimal" element={<FicheAnimal animal={undefined} index={undefined} />} />
 						<Route path="Cart" element={<Cart />} />
-						<Route path="ProjectCart" element={<ProjectCart />} />
+						{/* <Route path="ProjectCart" element={<ProjectCart />} /> */}
 						{/* <Route path="ProjectListing" element={<ProjectListing />} /> */}
 					</Route>
 				</Routes>
