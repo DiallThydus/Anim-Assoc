@@ -3,29 +3,32 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use Core\Entity\DefaultEntity;
+use JsonSerializable;
 
-class User
+class User extends DefaultEntity implements JsonSerializable
 {
     /**
      * User's id
      * PRIMARY KEY UNSIGNED NOT NULLABLE
      *
-     * @var integer
+     * @var integer $id
      */
     private int $id;
+
     /**
      * The user's last name.
      * string 255 NOT NULLABLE
-     * @var string $lastName
+     * @var string $last_name
      */
-    private string $lastName;
+    private string $last_name;
 
     /**
      * The user's first name.
      * string 255 NOT NULLABLE
-     * @var string $firstName
+     * @var string $first_name
      */
-    private string $firstName;
+    private string $first_name;
 
     /**
      * The user's email address.
@@ -37,9 +40,9 @@ class User
     /**
      * If the user's email is verified.
      * boolean default 0
-     * @var boolean $isEmailVerified
+     * @var boolean $email_verified
      */
-    private bool $isEmailVerified;
+    private bool $email_verified;
 
     /**
      * The user's password.
@@ -58,9 +61,9 @@ class User
     /**
      * The user's ZIP code.
      * string 6 NOT NULLABLE
-     * @var string $zipCode
+     * @var string $zip_code
      */
-    private string $postCode;
+    private string $zip_code;
 
     /**
      * The user's city.
@@ -72,9 +75,9 @@ class User
     /**
      * The user's phone number.
      * string 10 NULLABLE default NULL
-     * @var string $phoneNumber
+     * @var string $phone_number
      */
-    private string $phoneNumber;
+    private string $phone_number;
 
     /**
      * The user's role.
@@ -93,16 +96,48 @@ class User
     /**
      * The user's creation date.
      * datetime NULLABLE default NULL
-     * @var Carbon $created_at
+     * @var string|null $date_creation
      */
-    private Carbon $created_at;
+    private ?string $date_creation;
 
     /**
      * The user's update date.
      * datetime NULLABLE default NULL
-     * @var Carbon $updated_at
+     * @var string|null $date_updated
      */
-    private Carbon $updated_at;
+    private ?string $date_updated;
+
+    public function __construct(array $data = [])
+    {
+        if(!empty($data)){
+            $this->hydrate($data);
+        }
+    }
+
+
+    /**
+     * Get the value of id
+     *
+     * @return int|null
+     */
+    public function getId(): int|null
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get the user's last name.
@@ -111,18 +146,18 @@ class User
      */
     public function getLastName(): string
     {
-        return strtoupper($this->lastName);
+        return $this->last_name;
     }
 
     /**
      * Set the user's last name.
      *
-     * @param string $lastName
+     * @param string $last_name
      * @return User
      */
-    public function setLastName(string $lastName): self
+    public function setLastName(string $last_name): self
     {
-        $this->lastName = \strtolower($lastName);
+        $this->last_name = strtolower($last_name);
 
         return $this;
     }
@@ -134,18 +169,18 @@ class User
      */
     public function getFirstName(): string
     {
-        return ucfirst($this->firstName);
+        return $this->first_name;
     }
 
     /**
      * Set the user's first name.
      *
-     * @param string $firstName
+     * @param string $first_name
      * @return User
      */
-    public function setFirstName(string $firstName): self
+    public function setFirstName(string $first_name): self
     {
-        $this->firstName = \strtolower($firstName);
+        $this->first_name = \strtolower($first_name);
 
         return $this;
     }
@@ -180,18 +215,18 @@ class User
      */
     public function getIsEmailVerified(): bool
     {
-        return $this->isEmailVerified;
+        return $this->email_verified;
     }
 
     /**
      * Set if the user's email is verified.
      *
-     * @param boolean $isEmailVerified
+     * @param bool $email_verified
      * @return User
      */
-    public function setIsEmailVerified(bool $isEmailVerified): self
+    public function setIsEmailVerified(bool $email_verified): self
     {
-        $this->isEmailVerified = $isEmailVerified;
+        $this->email_verified = $email_verified;
 
         return $this;
     }
@@ -199,12 +234,11 @@ class User
     /**
      * Check user's password.
      *
-     * @param $password
      * @return string
      */
-    public function checkPassword($password): string
+    public function getPassword(): string
     {
-        return \password_verify($password, $this->password);
+        return $this->password;
     }
 
     /**
@@ -221,13 +255,24 @@ class User
     }
 
     /**
+     * Verify user's password.
+     *
+     * @param string $password
+     * @return boolean
+     */
+    public function checkPassword(string $password): bool
+    {
+        return \password_verify($password, $this->password);
+    }
+
+    /**
      * Get the user's address.
      *
      * @return string
      */
     public function getAddress(): string
     {
-        return \ucwords($this->address);
+        return $this->address;
     }
 
     /**
@@ -236,7 +281,7 @@ class User
      * @param string $address
      * @return User
      */
-    public function address(string $address): self
+    public function setAddress(string $address): self
     {
         $this->address = \strtolower($address);
 
@@ -250,18 +295,18 @@ class User
      */
     public function getZipCode(): string
     {
-        return \strtoupper($this->zipCode);
+        return $this->zip_code;
     }
 
     /**
      * Set the user's ZIP code.
      *
-     * @param string $zipCode
+     * @param string $zip_code
      * @return User
      */
-    public function setZipCode(string $zipCode): self
+    public function setZipCode(string $zip_code): self
     {
-        $this->zipCode = \strtolower($zipCode);
+        $this->zip_code = \strtolower($zip_code);
 
         return $this;
     }
@@ -273,7 +318,7 @@ class User
      */
     public function getCity(): string
     {
-        return \ucwords($this->city);
+        return $this->city;
     }
 
     /**
@@ -296,18 +341,18 @@ class User
      */
     public function getPhoneNumber(): string
     {
-        return wordwrap($this->phoneNumber, 2, ' ', true);
+        return $this->phone_number;
     }
 
     /**
      * Set the user's phone number.
      *
-     * @param string $phoneNumber
+     * @param string $phone_number
      * @return User
      */
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(string $phone_number): self
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
 
         return $this;
     }
@@ -353,7 +398,7 @@ class User
      */
     public function setDonation(float $donation): self
     {
-        $this->donation = $this->donation + $donation;
+        $this->donation = $donation;
 
         return $this;
     }
@@ -361,22 +406,22 @@ class User
     /**
      * Get the user's creation date.
      *
-     * @return Carbon
+     * @return string|null
      */
-    public function getCreated_at(): Carbon
+    public function getDateCreation(): string|null
     {
-        return $this->created_at;
+        return $this->date_creation;
     }
 
     /**
      * Set the user's creation date.
      *
-     * @param Carbon $created_at
+     * @param string|null $date_creation
      * @return User
      */
-    public function setCreated_at(Carbon $created_at): self
+    public function setDateCreation(string|null $date_creation): self
     {
-        $this->created_at = $created_at;
+        $this->date_creation = $date_creation;
 
         return $this;
     }
@@ -384,23 +429,47 @@ class User
     /**
      * Get the user's update date.
      *
-     * @return Carbon
+     * @return string|null
      */
-    public function getUpdated_at(): Carbon
+    public function getDateUpdated(): string|null
     {
-        return $this->updated_at;
+        return $this->date_updated;
     }
 
     /**
      * Set the user's update date.
      *
-     * @param Carbon $updated_at
+     * @param string|null $date_updated
      * @return User
      */
-    public function setUpdated_at(Carbon $updated_at): self
+    public function setDateUpdated(string|null $date_updated): self
     {
-        $this->updated_at = $updated_at;
+        $this->date_updated = $date_updated;
 
         return $this;
+    }
+
+/**
+     * Return an array of all the user's properties.
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'lastName' => \strtoupper($this->getLastName()),
+            'firstName' => \ucfirst($this->getFirstName()),
+            'email' => $this->getEmail(),
+            'isEmailVerified' => $this->getIsEmailVerified(),
+            'address' => \ucwords($this->getAddress()),
+            'zipCode' => $this->getZipCode(),
+            'city' => \ucwords($this->getCity()),
+            'phoneNumber' => wordwrap($this->getPhoneNumber(), 2, ' ', true),
+            'role' => $this->getRole(),
+            'donation' => $this->getDonation(),
+            'dateCreation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+            'dateUpdated' => Carbon::parse($this->getDateUpdated())->format('d/m/Y'),
+        ];
     }
 }
