@@ -3,9 +3,10 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use Core\Entity\DefaultEntity;
 use JsonSerializable;
 
-class User implements JsonSerializable
+class User extends DefaultEntity implements JsonSerializable
 {
     /**
      * User's id
@@ -106,15 +107,36 @@ class User implements JsonSerializable
      */
     private ?string $date_updated;
 
+    public function __construct(array $data = [])
+    {
+        if(!empty($data)){
+            $this->hydrate($data);
+        }
+    }
+
 
     /**
      * Get the value of id
      *
-     * @return  integer
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): int|null
     {
-        return $this->id;
+        return $this->id ?? null;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -124,7 +146,7 @@ class User implements JsonSerializable
      */
     public function getLastName(): string
     {
-        return strtoupper($this->last_name);
+        return $this->last_name;
     }
 
     /**
@@ -135,7 +157,7 @@ class User implements JsonSerializable
      */
     public function setLastName(string $last_name): self
     {
-        $this->last_name = \strtolower($last_name);
+        $this->last_name = strtolower($last_name);
 
         return $this;
     }
@@ -147,7 +169,7 @@ class User implements JsonSerializable
      */
     public function getFirstName(): string
     {
-        return ucfirst($this->first_name);
+        return $this->first_name;
     }
 
     /**
@@ -233,13 +255,24 @@ class User implements JsonSerializable
     }
 
     /**
+     * Verify user's password.
+     *
+     * @param string $password
+     * @return boolean
+     */
+    public function checkPassword(string $password): bool
+    {
+        return \password_verify($password, $this->password);
+    }
+
+    /**
      * Get the user's address.
      *
      * @return string
      */
     public function getAddress(): string
     {
-        return \ucwords($this->address);
+        return $this->address;
     }
 
     /**
@@ -262,7 +295,7 @@ class User implements JsonSerializable
      */
     public function getZipCode(): string
     {
-        return \strtoupper($this->zip_code);
+        return $this->zip_code;
     }
 
     /**
@@ -285,7 +318,7 @@ class User implements JsonSerializable
      */
     public function getCity(): string
     {
-        return \ucwords($this->city);
+        return $this->city;
     }
 
     /**
@@ -308,7 +341,7 @@ class User implements JsonSerializable
      */
     public function getPhoneNumber(): string
     {
-        return wordwrap($this->phone_number, 2, ' ', true);
+        return $this->phone_number;
     }
 
     /**
@@ -416,55 +449,27 @@ class User implements JsonSerializable
         return $this;
     }
 
-    public function hydrate($data = [])
-    {
-        var_dump('pouet');
-        var_dump('<br>');
-        foreach ($data as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            if (method_exists($this, $method)) {
-                $this->$method($value);
-            }
-        }
-    }
-
-    public function __invoke(): array
-    {
-
-        $array = array();
-        $methods = get_class_methods($this);
-
-        foreach ($methods as $method) {
-            if (str_contains($method, 'get')) {
-                $key = strtolower(substr($method, 3));
-                if (method_exists($this, $method) && $method !== 'getId') {
-                    $array[$key] = $this->$method();
-                }
-            }
-        }
-        // foreach ($this as $key => $value) {
-        //     if ($key !== 'id') {
-        //         $array[$key] = $value;
-        //     }
-        // }
-        return $array;
-    }
-
+/**
+     * Return an array of all the user's properties.
+     *
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [
-            'lastName' => $this->getLastName(),
-            'firstName' => $this->getFirstName(),
+            'id' => $this->getId(),
+            'lastName' => \strtoupper($this->getLastName()),
+            'firstName' => \ucfirst($this->getFirstName()),
             'email' => $this->getEmail(),
             'isEmailVerified' => $this->getIsEmailVerified(),
-            'address' => $this->getAddress(),
+            'address' => \ucwords($this->getAddress()),
             'zipCode' => $this->getZipCode(),
-            'city' => $this->getCity(),
-            'phoneNumber' => $this->getPhoneNumber(),
+            'city' => \ucwords($this->getCity()),
+            'phoneNumber' => wordwrap($this->getPhoneNumber(), 2, ' ', true),
             'role' => $this->getRole(),
             'donation' => $this->getDonation(),
-            'dateCreation' => $this->getDateCreation(),
-            'dateUpdated' => $this->getDateUpdated(),
+            'dateCreation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+            'dateUpdated' => Carbon::parse($this->getDateUpdated())->format('d/m/Y'),
         ];
     }
 }

@@ -4,7 +4,8 @@ namespace Core\Model;
 use Core\Database\Database;
 use Exception;
 
-class DefaultModel extends Database {
+class DefaultModel extends Database
+{
 
     protected string $table;
 
@@ -16,7 +17,7 @@ class DefaultModel extends Database {
      */
     public function findAll(): array
     {
-        $stmt = "SELECT * FROM ". $this->table;
+        $stmt = "SELECT * FROM " . $this->table;
 
         return $this->getData($stmt);
     }
@@ -30,8 +31,23 @@ class DefaultModel extends Database {
      */
     public function find(int $id): array|object
     {
-        $stmt = "SELECT * FROM " . $this->table . " WHERE id = " .$id;
+        $stmt = "SELECT * FROM " . $this->table . " WHERE id = " . $id;
 
         return $this->getData($stmt, true);
+    }
+
+    public function delete(int $id): bool
+    {
+        try {
+            $stmt = "DELETE FROM " . $this->table . " WHERE id = :id";
+
+            $prepare = $this->pdo->prepare($stmt);
+            $prepare->bindValue(':id', $id, \PDO::PARAM_INT);
+            $prepare->execute();
+
+            return true;
+        } catch (\PDOException $e) {
+            return $e->getMessage() . " -> line " . $e->getLine();
+        }
     }
 }
