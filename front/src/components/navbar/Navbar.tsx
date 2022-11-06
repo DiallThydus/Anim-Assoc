@@ -17,11 +17,14 @@ export default function NavbarComponent() {
                         <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/login')}>
                             Se connecter
                         </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/adoption')}>
-                            Adoption
+                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/PageAnimaux')}>
+                            PageAnimaux
                         </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/anim')}>
-                            Anim
+                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/FicheAnimal')}>
+                            FicheAnimal
+                        </Button>
+                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/Cart')}>
+                            Cart
                         </Button>
                     </div>
                 </Navbar>
