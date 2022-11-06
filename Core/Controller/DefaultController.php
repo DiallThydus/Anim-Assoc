@@ -56,21 +56,31 @@ class DefaultController
     {
         $carbon = Carbon::now();
         try {
-            $data =[
-                'lastName' => 'SHADOW',
-                'firstName' => 'SUN',
-                'email' => 'TEST@TEST.COM',
-                'isEmailVerified' => 1,
-                'password' => 'POUET5678',
-                'address' => '1 RUE DU SQLITE',
-                'zipCode' => '78190',
-                'city' => 'PETAOUCHNOCK',
-                'phoneNumber' => '0668068961',
-                'role' => 1,
-                'donation' => 0,
-                'dateCreation' => $carbon->toDateTimeString(),
-                'dateUpdated' => $carbon->toDateTimeString()
-            ];
+            if(! isset($_POST)){
+                throw new \UnexpectedValueException("La méthode utilisée doit etre POST!", 500);
+            }
+            $data = [];
+            foreach ($_POST as $key => $value){
+                $data[$key] = $value;
+            }
+            switch (substr($this->entity, 13)){
+                case 'User':
+                    $data['isEmailVerified'] = 0;
+                    $data['role'] = 0;
+                    $data['donation'] = 0;
+                    break;
+                case 'Animal':
+                    break;
+                case 'Category':
+                    break;
+                case 'Product':
+                    break;
+                default:
+                    throw new \UnexpectedValueException("L'entité n'existe pas!", 500);
+            }
+
+            $data['created_at'] = $carbon->toDateTimeString();
+            $data['updated_at'] = NULL;
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
             $newEntityId = $this->model->save($entityObj);
