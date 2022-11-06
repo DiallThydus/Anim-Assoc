@@ -4,8 +4,9 @@ import Login from './components/auth/Login';
 import Signin from './components/auth/Signin';
 import Home from './components/home/Home';
 import Navbar from "./components/navbar/Navbar";
-import Adoption from './components/card/Adoption';
-import Anim from './components/card/Anim';
+import PageAnimaux from './components/card/PageAnimaux';
+import FicheAnimal from './components/card/FicheAnimal';
+import Cart from "./components/card/cart";
 
 import './App.css';
 
@@ -19,8 +20,9 @@ function App() {
 						<Route index element={<Home />} />
 						<Route path="login" element={<Login />} />
 						<Route path="signin" element={<Signin />} />
-						<Route path="adoption" element={<Adoption />} />
-						<Route path="anim" element={<Anim bg={undefined} text={undefined} />} />
+						<Route path="PageAnimaux" element={<PageAnimaux />} />
+						<Route path="FicheAnimal" element={<FicheAnimal />} />
+						<Route path="Cart" element={<Cart />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
