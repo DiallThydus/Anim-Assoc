@@ -9,6 +9,8 @@ import FicheAnimal from './components/card/FicheAnimal';
 import Cart from "./components/card/cart";
 
 import './App.css';
+import ProjectCart from "./components/Project/ProjectCart";
+// import ProjectListing from "./components/Project/ProjectListing";
 
 function App() {
 	return (
@@ -23,6 +25,8 @@ function App() {
 						<Route path="PageAnimaux" element={<PageAnimaux />} />
 						<Route path="FicheAnimal" element={<FicheAnimal />} />
 						<Route path="Cart" element={<Cart />} />
+						<Route path="ProjectCart" element={<ProjectCart />} />
+						{/* <Route path="ProjectListing" element={<ProjectListing />} /> */}
 					</Route>
 				</Routes>
 			</BrowserRouter>
