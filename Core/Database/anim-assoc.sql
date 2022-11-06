@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `animals` (
   `pictures` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
 --
@@ -119,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` float NOT NULL,
   `quantity` int DEFAULT NULL,
   `category_id` int NOT NULL,
+
   `date_creation` datetime DEFAULT NULL,
   `date_updated` timestamp NULL DEFAULT NULL,
   `pictures` varchar(255) COLLATE utf8_bin NOT NULL,

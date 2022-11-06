@@ -4,7 +4,9 @@ namespace App\Entities;
 
 use Carbon\Carbon;
 
-class Animals{
+use jsonSerialize;
+
+class Animal implements JsonSerializable{
 
     /**
      * Animal's name.
@@ -78,7 +80,7 @@ class Animals{
      * Set Animal's name.
      *
      * @param string $name
-     * @return Animals
+     * @return Animal
      */
     public function setName(string $name): self
     {
@@ -101,7 +103,7 @@ class Animals{
      * Set Animal's age.
      *
      * @param integer $age
-     * @return Animals
+     * @return Animal
      */
     public function setAge(int $age): self
     {
@@ -124,7 +126,7 @@ class Animals{
      * Set Animal's color.
      *
      * @param array $color
-     * @return Animals
+     * @return Animal
      */
     public function setColor(array $color): self
     {
@@ -147,7 +149,7 @@ class Animals{
      * Set Animal's sex.
      *
      * @param boolean $sex
-     * @return Animals
+     * @return Animal
      */
     public function setSex(bool $sex): self
     {
@@ -170,7 +172,7 @@ class Animals{
      * Set Animal's species.
      *
      * @param string $species
-     * @return Animals
+     * @return Animal
      */
     public function setSpecies(string $species): self 
     {
@@ -193,7 +195,7 @@ class Animals{
      * Set Animal's adopted.
      *
      * @param boolean $adopted
-     * @return Animals
+     * @return Animal
      */
     public function setAdopted(bool $adopted): self 
     {
@@ -216,7 +218,7 @@ class Animals{
      * Set Animal's creation date.
      *
      * @param Carbon $created_at
-     * @return Animals
+     * @return Animal
      */
     public function setCreated_at(Carbon $created_at): self
     {
@@ -227,7 +229,7 @@ class Animals{
 
     //carbon update(ts)
    /**
-     * Get the user's update date.
+     * Get animal update date.
      *
      * @return Carbon
      */
@@ -237,10 +239,10 @@ class Animals{
     }
 
     /**
-     * Set the user's update date.
+     * Set animal update date.
      *
      * @param Carbon $updated_at
-     * @return Animals
+     * @return Animal
      */
     public function setUpdated_at(Carbon $updated_at): self
     {
@@ -248,4 +250,18 @@ class Animals{
 
         return $this;
     }
+
+     //Json
+     public function jsonSerialize(): array
+     {
+         return [
+             'name' => $this->getName(),
+             'age' => $this->getAge(),
+             'sex' => $this->getSex(),
+             'species' => $this->getSpecies(),
+             'adopted' => $this->getAdopted(),
+             'created_at' => $this->getCreated_at(),
+             'updated_at' => $this->getUpdated_at(),
+         ];
+     }
 }
