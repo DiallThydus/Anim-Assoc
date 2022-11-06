@@ -8,6 +8,8 @@ import Home from './components/home/Home';
 import Navbar from "./components/navbar/Navbar";
 
 import './App.css';
+import ProjectCart from "./components/Project/ProjectCart";
+// import ProjectListing from "./components/Project/ProjectListing";
 
 function App() {
 	return (
