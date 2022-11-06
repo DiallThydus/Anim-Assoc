@@ -3,6 +3,8 @@ import { ToastContainer } from 'react-toastify';
 
 import Navbar from "./components/navbar/Navbar";
 
+import Navbar from "./components/navbar/Navbar";
+
 import Login from './components/auth/Login';
 import Signin from './components/auth/Signin';
 import Cart from "./components/Cart/Cart";
@@ -12,8 +14,6 @@ import ListAnimals from './components/Animals/ListAnimals';
 import DetailsAnimal from "./components/Animals/DetailsAnimal";
 
 import './App.css';
-import ProjectCart from "./components/Project/ProjectCart";
-// import ProjectListing from "./components/Project/ProjectListing";
 
 function App() {
 	return (
