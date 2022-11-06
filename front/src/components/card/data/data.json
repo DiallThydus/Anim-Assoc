@@ -1,0 +1,34 @@
+{
+    "challenges": [
+    {
+    "id": "tca1do",
+    "name": "Tip Calculator App",
+    "image": ""
+    },
+    {
+    "id": "gusa2df",
+    "name": "GitHub User Search App",
+    "image": ""
+    },
+    {
+    "id": "osc3do",
+    "name": "Order Summary Component",
+    "image": ""
+    },
+    {
+    "id": "ttd4do",
+    "name": "Time Tracking Dashboard",
+    "image": ""
+    },
+    {
+    "id": "ipc5do",
+    "name": "Interactive pricing component",
+    "image": ""
+    },
+    {
+    "id": "iat6df",
+    "name": "IP Address Tracker",
+    "image": ""
+    }
+    ]
+    }

@@ -1,4 +1,6 @@
 import React from 'react';
+import data from "./data/data.json";
+import FicheAnimal from './FicheAnimal';
 
 const CategoryPage = () => {
   return <div>  
@@ -14,26 +16,33 @@ const CategoryPage = () => {
                       <option>Rongeur</option>
                       <option>Autres</option>
                   </select>
-                  {/* <select className='ml-3 border-2 border-silver mobile:ml-0'>
-                      <option selected disabled>Color</option>
-                      <option>Yellow</option>
-                      <option>Blue</option>
-                      <option>Red</option>
-                      <option>Green</option>
-                  </select> */}
               </div>
               <div className='flex mobile:flex-col mobile:items-end'>
                   <p>Sort by</p>
               <select className='ml-3 border-2 border-silver'>
                       <option selected >AgeMin (first)</option>
-                      <option>AgeMax(first)</option>
+                      <option>(first)</option>
                       <option>Price (asc)</option>
                       <option>Price (desc)</option>
                   </select>
               </div>
           </div>
       </div>
+      
   </div>;
+
 };
 
-export default CategoryPage;
+const ProjectsListing = () => {
+    const { challenges } = data;
+    return (
+      <div className="max-w-6xl py-12 min-h-[88vh] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {challenges.map((challenge, i) => (
+          <FicheAnimal key={challenge.id}  />
+        ))}
+      </div>
+    );
+  };
+
+  export default ProjectsListing || CategoryPage;
+// export default CategoryPage;
