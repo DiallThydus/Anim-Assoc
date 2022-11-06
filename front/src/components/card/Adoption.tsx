@@ -1,12 +1,18 @@
 import React from 'react';
+
 // import { Image } from 'react-native';
 
-
+// // @ts-ignore
 // import BoraBora from '../assets/borabora.jpg';
+// // @ts-ignore
 // import BoraBora2 from '../assets/borabora2.jpg';
+// // @ts-ignore
 // import Maldives from '../assets/maldives.jpg';
-// import Maldives3 from "./assets/maldives3.jpeg";
-// import Maldives2 from './maldives3.jpeg';
+// @ts-ignore
+import Maldives3 from "../assets/maldives3.jpeg";
+// // @ts-ignore
+// import Maldives2 from './maldives2.jpeg';
+// // @ts-ignore
 // import KeyWest from '../assets/keywest.jpg';
 import Anim from './Anim';
 
@@ -17,9 +23,9 @@ const Adoption = () => {
       {/* <Anim bg={BoraBora} text='Bora Bora' />
     <Anim bg={BoraBora2} text='Maldives' />
     <Anim bg={Maldives} text='Antigua' />
-    <Anim bg={Maldives2} text='Cozumel' />
-    <Anim bg={Maldives3} text='Jamaica' />
-    <Anim bg={KeyWest} text='Key West' /> */}
+    <Anim bg={Maldives2} text='Cozumel' /> */}
+      <Anim bg={Maldives3} text='Jamaica' />
+      {/* <Anim bg={KeyWest} text='Key West' /> */}
 
       <p>hello</p>
     </div>
