@@ -1,31 +1,29 @@
-import { Button, Navbar } from "react-daisyui";
-import { useNavigate } from "react-router-dom";
+import { Navbar } from "react-daisyui";
+import { Link } from "react-router-dom";
 
 export default function NavbarComponent() {
-    const navigate = useNavigate();
     return (
         <>
             <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
                 <Navbar className='flex justify-between'>
-                    <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/')}>
-                        Anim' Assoc
-                    </Button>
                     <div className="flex space-x-4">
-                        <Button className="text-xl normal-case" color="primary" onClick={() => navigate('/signin')}>
-                            S'inscrire
-                        </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/login')}>
-                            Se connecter
-                        </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/PageAnimaux')}>
-                            PageAnimaux
-                        </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/FicheAnimal')}>
-                            FicheAnimal
-                        </Button>
-                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/Cart')}>
+                        <Link to="/" className="text-xl normal-case">
+                            Anim' Assoc
+                        </Link>
+                        <Link to="/animals" className="text-xl normal-case">
+                            Animals
+                        </Link>
+                    </div>
+                    <div className="flex space-x-4">
+                        <Link to="/signin" className="text-xl normal-case">
+                            Register
+                        </Link>
+                        <Link to="/login" className="text-xl normal-case">
+                            Login
+                        </Link>
+                        <Link to="/cart" className="text-xl normal-case">
                             Cart
-                        </Button>
+                        </Link>
                     </div>
                 </Navbar>
             </div>
