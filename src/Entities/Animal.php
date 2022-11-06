@@ -23,7 +23,6 @@ class Animal implements JsonSerializable{
     private int $age;
 
     /**
-
      * Animal's color.
      *
      * @var array
@@ -240,7 +239,6 @@ class Animal implements JsonSerializable{
     }
 
     /**
-
      * Set animal update date.
      *
      * @param Carbon $updated_at
