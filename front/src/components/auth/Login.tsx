@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { STRING_INPUT_OPTIONS } from "./Signin";
 import { Link } from "react-router-dom";
+import { INPUT_OPTIONS } from "./Signin";
 
 interface FormLoginProps extends FieldValues {
     email: string;
@@ -11,7 +11,7 @@ interface FormLoginProps extends FieldValues {
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (formValues: FormLoginProps) => {
+    const onSubmit = async (formValues?: FormLoginProps) => {
         // send request
     }
 
@@ -28,7 +28,7 @@ export default function Login() {
                             className="border bg-gray-100 p-2"
                             type="email"
                             placeholder="Email"
-                            {...register("email", STRING_INPUT_OPTIONS)}
+                            {...register("email", INPUT_OPTIONS)}
                         />
                         {errors.email?.type === 'required' && (
                             <p className='text-red-600'>Email is required</p>
@@ -42,7 +42,7 @@ export default function Login() {
                             className="border bg-gray-100 p-2"
                             type="password"
                             placeholder="Password"
-                            {...register("password", STRING_INPUT_OPTIONS)}
+                            {...register("password", INPUT_OPTIONS)}
                         />
                         {errors.password?.type === 'required' && (
                             <p className='text-red-600'>Password is required</p>
@@ -60,12 +60,12 @@ export default function Login() {
                         </label>
                     </div>
                     <p className="text-center mt-8">
-						Create account?
-						{" "}
-						<Link to="/Signin" className="text-purple-500 font-semibold">
-							Create now
-						</Link>
-					</p>
+                        Create account?
+                        {" "}
+                        <Link to="/Signin" className="text-purple-500 font-semibold">
+                            Create now
+                        </Link>
+                    </p>
                 </form>
             </div>
         </div>
