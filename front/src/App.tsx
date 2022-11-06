@@ -12,6 +12,8 @@ import ListAnimals from './components/Animals/ListAnimals';
 import DetailsAnimal from "./components/Animals/DetailsAnimal";
 
 import './App.css';
+import ProjectCart from "./components/Project/ProjectCart";
+// import ProjectListing from "./components/Project/ProjectListing";
 
 function App() {
 	return (
