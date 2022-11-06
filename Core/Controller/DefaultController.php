@@ -81,10 +81,11 @@ class DefaultController
                     throw new \UnexpectedValueException("L'entité n'existe pas!", 500);
             }
 
-            $data['created_at'] = $carbon->toDateTimeString();
-            $data['updated_at'] = NULL;
+            $data['dateCreation'] = $carbon->toDateTimeString();
+            $data['dateUpdated'] = NULL;
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
+            var_dump($data);
             $newEntityId = $this->model->save($entityObj);
             Responser::response(['message' => $entityName . ' enregistré(é) avec succès!', 'id' => $newEntityId]);
         } catch (Exception $e) {
