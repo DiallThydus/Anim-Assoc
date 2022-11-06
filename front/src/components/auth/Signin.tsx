@@ -28,7 +28,7 @@ export const INPUT_OPTIONS = {
 	maxLength: 150
 } as RegisterOptions;
 
-export const API_URI = 'http://localhost/';
+export const API_URI = 'http://localhost:8888/';
 
 export default function Signin() {
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
@@ -58,6 +58,7 @@ export default function Signin() {
 		// todo: fix cors
 		const request = await fetch('http://localhost/', {
 			method: 'POST',
+			mode: 'no-cors',
 			headers,
 			body: formData
 		});

@@ -1,13 +1,11 @@
 <?php
 
-use App\Controllers\UserController;
+use Core\Routeur\Routeur;
 
 const ROOT = __DIR__;
 require ROOT . "/vendor/autoload.php";
 
-// Affiche notre page de catégories
-// (new CategoryManager)->getCategories();
-// (new PostManager)->getPosts();
-(new UserController)->create();
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
-
+Routeur::routes();
