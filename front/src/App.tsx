@@ -4,6 +4,8 @@ import Login from './components/auth/Login';
 import Signin from './components/auth/Signin';
 import Home from './components/home/Home';
 import Navbar from "./components/navbar/Navbar";
+import Adoption from './components/card/Adoption';
+import Anim from './components/card/Anim';
 
 import './App.css';
 
@@ -17,7 +19,8 @@ function App() {
 						<Route index element={<Home />} />
 						<Route path="login" element={<Login />} />
 						<Route path="signin" element={<Signin />} />
-						<Route path="*" element={<NoPageFound />} />
+						<Route path="adoption" element={<Adoption />} />
+						<Route path="anim" element={<Anim bg={undefined} text={undefined} />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

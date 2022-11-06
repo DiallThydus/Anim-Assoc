@@ -1,5 +1,6 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { STRING_INPUT_OPTIONS } from "./Signin";
+import { Link } from "react-router-dom";
 
 interface FormLoginProps extends FieldValues {
     email: string;
@@ -58,6 +59,13 @@ export default function Login() {
                             Remember Me
                         </label>
                     </div>
+                    <p className="text-center mt-8">
+						Create account?
+						{" "}
+						<Link to="/Signin" className="text-purple-500 font-semibold">
+							Create now
+						</Link>
+					</p>
                 </form>
             </div>
         </div>

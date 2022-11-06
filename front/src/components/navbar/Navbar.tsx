@@ -17,6 +17,12 @@ export default function NavbarComponent() {
                         <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/login')}>
                             Se connecter
                         </Button>
+                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/adoption')}>
+                            Adoption
+                        </Button>
+                        <Button className="text-xl normal-case" color="ghost" onClick={() => navigate('/anim')}>
+                            Anim
+                        </Button>
                     </div>
                 </Navbar>
             </div>
