@@ -42,12 +42,12 @@ class DefaultController
     public function show(): void
     {
         try {
-            if (!isset($_GET['id']) && !is_int(intval($_GET['id']))) {
+            if(! isset($_GET['id']) && ! is_int(intval($_GET['id']))){
                 throw new \UnexpectedValueException("L'id attendu doit être un integer!", 500);
             }
             $id = intval($_GET['id']);
             Responser::response($this->model->find($id));
-        } catch (Exception $e) {
+        } catch (Exception $e){
             Responser::response([$e->getMessage()], $e->getCode());
         }
     }
@@ -56,16 +56,14 @@ class DefaultController
     {
         $carbon = Carbon::now();
         try {
-            if (!isset($_POST)) {
+            if(! isset($_POST)){
                 throw new \UnexpectedValueException("La méthode utilisée doit etre POST!", 500);
             }
-
             $data = [];
-            foreach ($_POST as $key => $value) {
+            foreach ($_POST as $key => $value){
                 $data[$key] = $value;
             }
-
-            switch (substr($this->entity, 13)) {
+            switch (substr($this->entity, 13)){
                 case 'User':
                     $data['isEmailVerified'] = 0;
                     $data['role'] = 0;
@@ -81,13 +79,12 @@ class DefaultController
                     throw new \UnexpectedValueException("L'entité n'existe pas!", 500);
             }
 
-            $data['dateCreation'] = $carbon->toDateTimeString();
-            $data['dateUpdated'] = NULL;
+            $data['created_at'] = $carbon->toDateTimeString();
+            $data['updated_at'] = NULL;
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
-            var_dump($data);
             $newEntityId = $this->model->save($entityObj);
-            Responser::response(['message' => $entityName . ' enregistré(é) avec succès!', 'id' => $newEntityId]);
+            Responser::response(['message' => $entityName. ' enregistré(é) avec succès!', 'id' => $newEntityId]);
         } catch (Exception $e) {
             Responser::response([$e->getMessage()], $e->getCode());
         }
@@ -96,7 +93,7 @@ class DefaultController
     public function update(): void
     {
         try {
-            $data = [
+            $data =[
                 'id' => 1,
                 'lastName' => 'SHADOW',
                 'firstName' => 'SUN',
@@ -114,7 +111,7 @@ class DefaultController
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
             $newEntityId = $this->model->save($entityObj);
-            Responser::response(['message' => $entityName . ' modifié(é) avec succès!', 'id' => $newEntityId]);
+            Responser::response(['message' => $entityName. ' modifié(é) avec succès!', 'id' => $newEntityId]);
         } catch (Exception $e) {
             Responser::response([$e->getMessage()], $e->getCode());
         }
@@ -123,14 +120,14 @@ class DefaultController
     public function delete(): void
     {
         try {
-            if (!isset($_GET['id']) && !is_int(intval($_GET['id']))) {
+            if(! isset($_GET['id']) && ! is_int(intval($_GET['id']))){
                 throw new \UnexpectedValueException("L'id attendu doit être un integer!", 500);
             }
             $id = intval($_GET['id']);
 
             $entityName = substr($this->entity, 13);
             ($this->model->delete($id))
-                ? Responser::response(['message' => $entityName . ' supprimé(é) avec succès!'])
+                ? Responser::response(['message' => $entityName. ' supprimé(é) avec succès!'])
                 : Responser::response(['message' => 'Erreur lors de la suppression de l\'entité !'], 500);
         } catch (Exception $e) {
             Responser::response([$e->getMessage()], $e->getCode());
