@@ -42,6 +42,7 @@ export default function Signin() {
 		}
 
 		const headers = new Headers();
+		headers.set('Access-Control-Allow-Origin', '*');
 		headers.set('Content-Type', 'application/json');
 
 		const formData = Object
@@ -54,6 +55,7 @@ export default function Signin() {
 				new FormData()
 			);
 
+		// todo: fix cors
 		const request = await fetch('http://localhost/', {
 			method: 'POST',
 			headers,
