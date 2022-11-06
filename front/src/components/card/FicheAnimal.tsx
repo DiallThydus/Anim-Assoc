@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 
 const FicheAnimal = () => {
@@ -17,10 +18,7 @@ const FicheAnimal = () => {
             Nom
           </h1>
           <p className="disription pr-[4rem] text-justify mt-4 mobile:pr-0">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium
-            accusamus, culpa neque ex sunt placeat. Vitae quia qui quo,
-            doloribus dolore aliquam veniam. Natus totam odit consequatur
-            consectetur delectus nihil!
+            Description de l'animal
           </p>
           <div className="flex flex-col place-self-start">
             <p className="mt-7 text-3xl">
@@ -29,9 +27,6 @@ const FicheAnimal = () => {
 
             <div className="colors flex mt-7 text-2xl">
               Age
-              <div className="colorSelect bg-red-600 "></div>
-              <div className="colorSelect bg-blue-600 "></div>
-              <div className="colorSelect bg-yellow-400 "></div>
             </div>
 
             <div className="mt-7 text-2xl">
@@ -57,3 +52,37 @@ const FicheAnimal = () => {
 };
 
 export default FicheAnimal;
+
+// const FicheAnimal = ({ }) => {
+//   return (
+//     <div className="bg-slate-100 p-5 shadow-lg rounded-md">
+//       <h2 className="text-indigo-500">
+//         <span className="text-indigo-300 mr-2">{}</span>
+//         {}
+//       </h2>
+//       <div>
+//         <img
+//           src={""}
+//           className="rounded-md my-4 md:h-52 w-full"
+//           alt=""
+//         />
+
+//         <div className="flex justify-between items-center">
+//           <a className="text-lg flex items-center" href="#">
+//             <div className="mr-1" />
+//             View Challenge
+//           </a>
+//           <a
+//             href="http://github.com/username/repo"
+//             className="flex items-center text-lg"
+//           >
+//             <div className="mr-1" />
+//             Source Code
+//           </a>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FicheAnimal;
