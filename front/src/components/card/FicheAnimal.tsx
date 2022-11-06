@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import PageAnimaux from './PageAnimaux';
 
-const FicheAnimal = ({animal, index}) => {
+const FicheAnimal = ({ animal, index }) => {
   return (
     <div className="bg-slate-100 p-5 shadow-lg rounded-md">
       <h2 className="text-indigo-500">
