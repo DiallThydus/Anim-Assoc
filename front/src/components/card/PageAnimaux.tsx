@@ -4,15 +4,15 @@ import FicheAnimal from './FicheAnimal';
 
 
 const ProjectsListing = () => {
-    const { animals } = data;
-    return (
-      <div className="max-w-6xl py-12 min-h-[88vh] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {animals.map((animal, i) => (
-          <FicheAnimal key={animal.id} index={i+1} animal={animal}/>
-        ))}
-      </div>
-    );
-  };
+  const { animals } = data;
+  return (
+    <div className="max-w-6xl py-12 min-h-[88vh] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {animals.map((animal, i) => (
+        <FicheAnimal key={animal.id} index={i + 1} animal={animal} />
+      ))}
+    </div>
+  );
+};
 // const CategoryPage = () => {
 //   return <div>  
 //       <div className='flex flex-col p-5'>
@@ -39,12 +39,12 @@ const ProjectsListing = () => {
 //               </div>
 //           </div>
 //       </div>
-      
+
 //   </div>;
 
 // };
 
 
 
-  export default ProjectsListing;
+export default ProjectsListing;
 // export default CategoryPage;
