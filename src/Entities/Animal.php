@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Carbon\Carbon;
 
-use jsonSerialize;
+use JsonSerializable;
 
 class Animal implements JsonSerializable{
 
@@ -251,8 +251,7 @@ class Animal implements JsonSerializable{
         return $this;
     }
 
-     //Json
-     public function jsonSerialize(): array
+    public function jsonSerialize(): array
      {
          return [
              'name' => $this->getName(),
