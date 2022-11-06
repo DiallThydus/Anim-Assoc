@@ -1,8 +1,8 @@
 <?php
 
 $dbConfig = [
-    'host' => "localhost:8889",
+    'host' => "localhost:3306",
     'db' => "anim_assoc",
     'user' => "root",
-    'password' => "root"
+    'password' => ""
 ];

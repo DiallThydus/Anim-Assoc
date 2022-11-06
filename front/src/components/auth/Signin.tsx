@@ -1,26 +1,39 @@
 import { FieldValues, RegisterOptions, useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface FormSigninProps extends FieldValues {
 	firstName: string;
 	lastName: string;
 	email: string;
+	phoneNumber: number;
+
 	password: string;
-	passwordConfirm: string;
-	terms: boolean;
-	remember: boolean;
+	passwordConfirm: string; // only front
+
+	address: string;
+	zipCode: number;
+	city: string;
+
+
+	terms: boolean; // only front
+	remember: boolean; // only front
 }
 
-export const STRING_INPUT_OPTIONS = {
+export const INPUT_OPTIONS = {
 	required: true,
 	minLength: 0,
 	maxLength: 150
 } as RegisterOptions;
 
+export const API_URI = 'http://localhost/';
+
 export default function Signin() {
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
 
-	const onSubmit = (formValues: FormSigninProps) => {
+	const onSubmit = async (formValues: FormSigninProps) => {
 		if (formValues.password !== formValues.passwordConfirm) {
 			return setError('passwordConfirm', {
 				type: 'equals-password',
@@ -28,7 +41,35 @@ export default function Signin() {
 			});
 		}
 
-		// send request
+		const headers = new Headers();
+		headers.set('Content-Type', 'application/json');
+
+		const formData = Object
+			.entries(formValues)
+			.reduce(
+				(formData, [key, value]) => {
+					formData.append(key, value.toString())
+					return formData;
+				},
+				new FormData()
+			);
+
+		const request = await fetch('http://localhost/', {
+			method: 'POST',
+			headers,
+			body: formData
+		});
+
+		console.log(request);
+		setTimeout(() => {
+			console.log(request);
+		}, 1000);
+
+		if (request.ok) {
+			toast('Account successfully created', { type: 'success' });
+		} else {
+			toast('Something went wront during account creation', { type: 'error' });
+		}
 	};
 
 	return (
@@ -46,7 +87,7 @@ export default function Signin() {
 							className="input input-bordered bg-gray-100 p-2"
 							type="text"
 							placeholder="Jean"
-							{...register('firstName', STRING_INPUT_OPTIONS)}
+							{...register('firstName', INPUT_OPTIONS)}
 						/>
 						{errors.firstName?.type === 'required' && (
 							<p className='text-red-600'>First name is required</p>
@@ -60,7 +101,7 @@ export default function Signin() {
 							className="input input-bordered bg-gray-100 p-2"
 							type="text"
 							placeholder="Dupont"
-							{...register('lastName', STRING_INPUT_OPTIONS)}
+							{...register('lastName', INPUT_OPTIONS)}
 						/>
 						{errors.lastName?.type === 'required' && (
 							<p className='text-red-600'>Last name is required</p>
@@ -74,10 +115,24 @@ export default function Signin() {
 							className="input input-bordered bg-gray-100 p-2"
 							type="email"
 							placeholder="jean.dupont@gmail.com"
-							{...register('email', STRING_INPUT_OPTIONS)}
+							{...register('email', INPUT_OPTIONS)}
 						/>
 						{errors.email?.type === 'required' && (
 							<p className='text-red-600'>Email is required</p>
+						)}
+					</div>
+					<div className="flex flex-col mb-4">
+						<label htmlFor="phoneNumber">
+							Phone Number
+						</label>
+						<input
+							className="input input-bordered bg-gray-100 p-2"
+							type="tel"
+							placeholder="+33 7 77 77 77 77"
+							{...register('phoneNumber', INPUT_OPTIONS)}
+						/>
+						{errors.phoneNumber?.type === 'required' && (
+							<p className='text-red-600'>Phone Number is required</p>
 						)}
 					</div>
 					<div className="flex flex-col mb-4">
@@ -88,7 +143,7 @@ export default function Signin() {
 							className="input input-bordered bg-gray-100 p-2"
 							type="password"
 							placeholder="********"
-							{...register('password', STRING_INPUT_OPTIONS)}
+							{...register('password', INPUT_OPTIONS)}
 						/>
 						{errors.password?.type === 'required' && (
 							<p className='text-red-600'>Password is required</p>
@@ -102,13 +157,55 @@ export default function Signin() {
 							className="input input-bordered bg-gray-100 p-2"
 							type="password"
 							placeholder="********"
-							{...register('passwordConfirm', STRING_INPUT_OPTIONS)}
+							{...register('passwordConfirm', INPUT_OPTIONS)}
 						/>
 						{errors.passwordConfirm?.type === 'required' && (
 							<p className='text-red-600'>Password confirmation is required</p>
 						)}
 						{errors.passwordConfirm?.type === 'equals-password' && (
 							<p className='text-red-600'>{errors.passwordConfirm?.message as string}</p>
+						)}
+					</div>
+					<div className="flex flex-col mb-4">
+						<label htmlFor="address">
+							Address
+						</label>
+						<input
+							className="input input-bordered bg-gray-100 p-2"
+							type="text"
+							placeholder="123 avenue de la rue"
+							{...register('address', INPUT_OPTIONS)}
+						/>
+						{errors.address?.type === 'required' && (
+							<p className='text-red-600'>Address is required</p>
+						)}
+					</div>
+					<div className="flex flex-col mb-4">
+						<label htmlFor="zipCode">
+							ZIP Code
+						</label>
+						<input
+							className="input input-bordered bg-gray-100 p-2"
+							type="number"
+							placeholder="75001"
+							{...register('zipCode', INPUT_OPTIONS)}
+						/>
+						{errors.zipCode?.type === 'required' && (
+							<p className='text-red-600'>ZIP Code is required</p>
+						)}
+					</div>
+					<div className="flex flex-col mb-4">
+						<label htmlFor="city">
+							City
+						</label>
+						<input
+							className="input input-bordered bg-gray-100 p-2"
+							type="text"
+							placeholder="Paris"
+							{...register('city', INPUT_OPTIONS)}
+						/>
+						{errors.city?.type === 'required' && (
+							<p className='text-red-600'>City is required</p>
 						)}
 					</div>
 					<div className="flex flex-col mb-4">
