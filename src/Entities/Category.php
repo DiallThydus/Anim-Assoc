@@ -70,7 +70,7 @@ class Category extends DefaultEntity
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->getId(),

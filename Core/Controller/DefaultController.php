@@ -6,7 +6,7 @@ use App\Services\Responser;
 use Carbon\Carbon;
 use Exception;
 
-class DefaultController
+class DefaultController implements ControllerInterface
 {
     protected mixed $model;
 
@@ -70,26 +70,17 @@ class DefaultController
                 $data[$key] = $value;
             }
 
-            switch (substr($this->entity, 13)) {
-                case 'User':
-                    $data['isEmailVerified'] = 0;
-                    $data['role'] = 0;
-                    $data['donation'] = 0;
-                    break;
-                case 'Animal':
-                    break;
-                case 'Category':
-                    break;
-                case 'Product':
-                    break;
-                default:
-                    throw new \UnexpectedValueException("L'entité n'existe pas !", 500);
+            $entityName = substr($this->entity, 13);
+            if ($entityName === 'User') {
+
+                $data['isEmailVerified'] = 0;
+                $data['role'] = 0;
+                $data['donation'] = 0;
             }
 
             $data['date_creation'] = $carbon->toDateTimeString();
             $data['date_updated'] = NULL;
 
-            $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
             $newEntityId = $this->model->save($entityObj);
             Responser::response(['message' => $entityName . ' enregistré(é) avec succès !', 'id' => $newEntityId]);
