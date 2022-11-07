@@ -6,12 +6,12 @@ import { useForm } from '../../hooks/useForm';
 export const RecordForm = <T extends Record>({
   FormFields,
   activeRecord,
+
   submitAction,
   success,
 }: RecordFormProps<T>) => {
   const { formState, setFormState, handleChange, handleSubmit } = useForm<T>(
-    activeRecord,
-    // submitAction
+    activeRecord, submitAction
   );
 
   useEffect(() => {
