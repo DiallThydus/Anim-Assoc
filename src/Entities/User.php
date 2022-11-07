@@ -452,7 +452,7 @@ class User extends DefaultEntity
     /**
      * Return an array of all the user's properties.
      *
-     * @return array
+     * @return array 
      */
     public function jsonSerialize(): array
     {

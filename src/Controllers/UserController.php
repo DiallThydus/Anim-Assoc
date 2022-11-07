@@ -10,10 +10,25 @@ use Exception;
 
 class UserController extends DefaultController
 {
+    /**
+     * Model user variable
+     *
+     * @var mixed
+     */
     protected mixed $model = UserModel::class;
 
+    /**
+     * Entity user variable
+     *
+     * @var mixed
+     */
     protected mixed $entity = User::class;
 
+    /**
+     * login function
+     *
+     * @return void
+     */
     public function login(): void
     {
         try {

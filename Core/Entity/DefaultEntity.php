@@ -7,6 +7,12 @@ use JsonSerializable;
 abstract class DefaultEntity implements JsonSerializable
 {
 
+    /**
+     * Hydrate function
+     *
+     * @param array $data
+     * @return void
+     */
     protected function hydrate($data = []): void
     {
         foreach ($data as $key => $value) {
@@ -17,6 +23,11 @@ abstract class DefaultEntity implements JsonSerializable
         }
     }
 
+    /**
+     * invoke function
+     *
+     * @return array
+     */
     public function __invoke(): array
     {
         $array = array();

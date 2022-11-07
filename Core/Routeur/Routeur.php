@@ -12,6 +12,11 @@ use Exception;
 
 class Routeur
 {
+    /**
+     * Routeur function
+     *
+     * @return void
+     */
     public static function routes(): void
     {
         try {

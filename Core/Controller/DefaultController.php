@@ -89,6 +89,11 @@ class DefaultController implements ControllerInterface
         }
     }
 
+    /**
+     * Update a user
+     *
+     * @return void
+     */
     public function update(): void
     {
         $carbon = Carbon::now();
@@ -113,6 +118,11 @@ class DefaultController implements ControllerInterface
         }
     }
 
+    /**
+     * Delete a user
+     *
+     * @return void
+     */
     public function delete(): void
     {
         try {

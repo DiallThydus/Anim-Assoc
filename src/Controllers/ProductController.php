@@ -8,7 +8,17 @@ use Core\Controller\DefaultController;
 
 class ProductController extends DefaultController
 {
+    /**
+     * Model product variable
+     *
+     * @var mixed
+     */
     protected mixed $model = ProductModel::class;
 
+    /**
+     * Entity product variable
+     *
+     * @var mixed
+     */
     protected mixed $entity = Product::class;
 }
