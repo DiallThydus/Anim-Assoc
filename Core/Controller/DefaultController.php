@@ -65,6 +65,7 @@ class DefaultController implements ControllerInterface
                 throw new \UnexpectedValueException("La méthode utilisée doit etre POST !", 500);
             }
 
+
             $data = [];
             foreach ($_POST as $key => $value) {
                 $data[$key] = $value;
@@ -72,10 +73,11 @@ class DefaultController implements ControllerInterface
 
             $entityName = substr($this->entity, 13);
             if ($entityName === 'User') {
-
                 $data['isEmailVerified'] = 0;
                 $data['role'] = 0;
                 $data['donation'] = 0;
+            } else if ($entityName === 'Animal') {
+                $data['isAdopted'] = 0;
             }
 
             $data['dateCreation'] = $carbon->toDateTimeString();
@@ -93,12 +95,12 @@ class DefaultController implements ControllerInterface
     {
         $carbon = Carbon::now();
         try {
-            if (!isset($_PUT)) {
+            if (!isset($_POST)) {
                 throw new \UnexpectedValueException("La méthode utilisée doit etre PUT !", 500);
             }
 
             $data = [];
-            foreach ($_PUT as $key => $value) {
+            foreach ($_POST as $key => $value) {
                 $data[$key] = $value;
             }
 

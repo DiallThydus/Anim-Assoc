@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import FicheAnimal from './CardAnimal';
+import ModalAddAnimal from './ModalAddAnimal';
+
+import { UserContext } from '../../App';
 import { API_URI } from '../../config';
 import { Animal } from '../../types';
-import FicheAnimal from './CardAnimal';
 
 export default function ListAnimals() {
+	const user = useContext(UserContext);
 	const [animals, setAnimals] = useState<Animal[]>();
 
 	useEffect(() => {
@@ -25,10 +30,13 @@ export default function ListAnimals() {
 	}, [])
 
 	return (
-		<div className="max-w-6xl py-12 min-h-[88vh] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-			{animals && animals.map((animal) => (
-				<FicheAnimal key={animal.id} animal={animal} />
-			))}
-		</div>
+		<>
+			{user?.isAdmin && <ModalAddAnimal />}
+			<div className="max-w-6xl py-12 min-h-[88vh] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+				{animals && animals.map((animal) => (
+					<FicheAnimal key={animal.id} animal={animal} />
+				))}
+			</div>
+		</>
 	);
 }

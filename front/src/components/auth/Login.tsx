@@ -1,11 +1,11 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { INPUT_OPTIONS } from "./Signin";
-import { API_URI } from "../../config";
+import { API_URI, INPUT_OPTIONS } from "../../config";
+import { BaseUser } from "../../types";
 
 interface FormLoginProps extends FieldValues {
     email: string;
@@ -13,7 +13,8 @@ interface FormLoginProps extends FieldValues {
     remember: boolean;
 }
 
-export default function Login() {
+export default function Login({ onLogin }: { onLogin: (user: BaseUser) => void; }) {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (formValues: FormLoginProps) => {
@@ -37,8 +38,9 @@ export default function Login() {
 
         const result = await request.json();
         if (request.ok) {
-            // todo: save user's informations
-            toast(result?.message || 'Connected', { type: 'success' });
+            toast('Connected', { type: 'success' });
+            onLogin(result);
+            navigate('/');
         } else {
             toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
             console.error(result);

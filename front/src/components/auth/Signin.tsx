@@ -1,10 +1,10 @@
-import { FieldValues, RegisterOptions, useForm } from 'react-hook-form';
-import { Link } from "react-router-dom";
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { API_URI } from '../../config';
+import { API_URI, INPUT_OPTIONS } from '../../config';
 
 interface FormSigninProps extends FieldValues {
 	firstName: string;
@@ -24,13 +24,8 @@ interface FormSigninProps extends FieldValues {
 	remember: boolean; // only front
 }
 
-export const INPUT_OPTIONS = {
-	required: true,
-	minLength: 0,
-	maxLength: 150
-} as RegisterOptions;
-
 export default function Signin() {
+	const navigate = useNavigate();
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
 
 	const onSubmit = async (formValues: FormSigninProps) => {
@@ -63,6 +58,7 @@ export default function Signin() {
 		const result = await request.json();
 		if (request.ok) {
 			toast(result?.message || 'Account successfully created', { type: 'success' });
+			navigate('/login');
 		} else {
 			toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
 			console.error(result);
