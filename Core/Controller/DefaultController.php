@@ -43,7 +43,7 @@ class DefaultController
     {
         try {
             if (!isset($_GET['id']) && !is_int(intval($_GET['id']))) {
-                throw new \UnexpectedValueException("L'id attendu doit être un integer!", 500);
+                throw new \UnexpectedValueException("L'id attendu doit être un integer !", 500);
             }
             $id = intval($_GET['id']);
             Responser::response($this->model->find($id));
@@ -52,12 +52,17 @@ class DefaultController
         }
     }
 
+    /**
+     * Create a user
+     *
+     * @return void
+     */
     public function create(): void
     {
         $carbon = Carbon::now();
         try {
             if (!isset($_POST)) {
-                throw new \UnexpectedValueException("La méthode utilisée doit etre POST!", 500);
+                throw new \UnexpectedValueException("La méthode utilisée doit etre POST !", 500);
             }
 
             $data = [];
@@ -73,21 +78,21 @@ class DefaultController
                     break;
                 case 'Animal':
                     break;
-                case 'CategoryModel':
+                case 'Category':
                     break;
                 case 'Product':
                     break;
                 default:
-                    throw new \UnexpectedValueException("L'entité n'existe pas!", 500);
+                    throw new \UnexpectedValueException("L'entité n'existe pas !", 500);
             }
 
-            $data['created_at'] = $carbon->toDateTimeString();
-            $data['updated_at'] = NULL;
+            $data['date_creation'] = $carbon->toDateTimeString();
+            $data['date_updated'] = NULL;
 
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
             $newEntityId = $this->model->save($entityObj);
-            Responser::response(['message' => $entityName . ' enregistré(é) avec succès!', 'id' => $newEntityId]);
+            Responser::response(['message' => $entityName . ' enregistré(é) avec succès !', 'id' => $newEntityId]);
         } catch (Exception $e) {
             Responser::response([$e->getMessage()], $e->getCode());
         }
@@ -97,15 +102,16 @@ class DefaultController
     {
         $carbon = Carbon::now();
         try {
-            if (!isset($_POST)) {
-                throw new \UnexpectedValueException("La méthode utilisée doit etre POST!", 500);
+            if (!isset($_PUT)) {
+                throw new \UnexpectedValueException("La méthode utilisée doit etre PUT !", 500);
             }
 
             $data = [];
-            foreach ($_POST as $key => $value) {
+            foreach ($_PUT as $key => $value) {
                 $data[$key] = $value;
             }
-            $data['updated_at'] = $carbon->toDateTimeString();
+
+            $data['date_updated'] = $carbon->toDateTimeString();
 
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);
