@@ -1,8 +1,10 @@
-import { FieldValues, RegisterOptions, useForm } from 'react-hook-form';
-import { Link } from "react-router-dom";
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { API_URI, INPUT_OPTIONS } from '../../config';
 
 interface FormSigninProps extends FieldValues {
 	firstName: string;
@@ -22,15 +24,8 @@ interface FormSigninProps extends FieldValues {
 	remember: boolean; // only front
 }
 
-export const INPUT_OPTIONS = {
-	required: true,
-	minLength: 0,
-	maxLength: 150
-} as RegisterOptions;
-
-export const API_URI = 'http://localhost:8888/';
-
 export default function Signin() {
+	const navigate = useNavigate();
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
 
 	const onSubmit = async (formValues: FormSigninProps) => {
@@ -40,10 +35,6 @@ export default function Signin() {
 				message: 'Passwords does not match'
 			});
 		}
-
-		const headers = new Headers();
-		headers.set('Access-Control-Allow-Origin', '*');
-		headers.set('Content-Type', 'application/json');
 
 		const formData = Object
 			.entries(formValues)
@@ -56,22 +47,21 @@ export default function Signin() {
 			);
 
 		// todo: fix cors
-		const request = await fetch('http://localhost/', {
+		const request = await fetch(API_URI + '/?controller=user&action=register', {
 			method: 'POST',
-			mode: 'no-cors',
-			headers,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			},
 			body: formData
 		});
 
-		console.log(request);
-		setTimeout(() => {
-			console.log(request);
-		}, 1000);
-
+		const result = await request.json();
 		if (request.ok) {
-			toast('Account successfully created', { type: 'success' });
+			toast(result?.message || 'Account successfully created', { type: 'success' });
+			navigate('/login');
 		} else {
-			toast('Something went wront during account creation', { type: 'error' });
+			toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
+			console.error(result);
 		}
 	};
 

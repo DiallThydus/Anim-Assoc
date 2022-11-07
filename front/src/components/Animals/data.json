@@ -1,0 +1,70 @@
+{
+	"animals": [
+		{
+			"id": 1,
+			"name": "Chien",
+			"age": 150,
+			"colors": [
+				"rouge"
+			],
+			"sexe": 0,
+			"race": "un truc qui parle",
+			"image": "Eclair.jpg"
+		},
+		{
+			"id": 2,
+			"name": "Chat",
+			"age": 1,
+			"colors": [
+				"vert"
+			],
+			"sexe": 1,
+			"race": "jsp",
+			"image": "Kitty.jpg"
+		},
+		{
+			"id": 3,
+			"name": "Rongeur",
+			"age": 5,
+			"colors": [
+				"violet"
+			],
+			"sexe": 0,
+			"race": "un avion de chasse",
+			"image": "Biscotte.jpg"
+		},
+		{
+			"id": 4,
+			"name": "AAAAAA",
+			"age": 9999,
+			"colors": [
+				"ça roule"
+			],
+			"sexe": 0,
+			"race": "LE TANK AHHHHHHHHHHH",
+			"image": "Jack.jpg"
+		},
+		{
+			"id": 5,
+			"name": "Un animal",
+			"age": 1,
+			"colors": [
+				"colorfluid"
+			],
+			"sexe": 1,
+			"race": "le ptiot",
+			"image": "Oggy.jpg"
+		},
+		{
+			"id": 6,
+			"name": "Chien",
+			"age": -4,
+			"colors": [
+				"oui"
+			],
+			"sexe": 0,
+			"race": "👽",
+			"image": "Rosie.jpg"
+		}
+	]
+}

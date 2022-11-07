@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email_verified` tinyint(1) DEFAULT '0',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `adress` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `zip_code` varchar(6) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `phone_number` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,

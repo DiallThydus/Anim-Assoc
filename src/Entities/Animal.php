@@ -180,7 +180,7 @@ class Animal extends DefaultEntity
      * @param string $colors
      * @return Animal
      */
-    public function setColor(string $colors): self
+    public function setColors(string $colors): self
     {
         $this->colors = $colors;
 
@@ -318,7 +318,7 @@ class Animal extends DefaultEntity
      * @param string|null $date_updated
      * @return Animal
      */
-    public function setUpdated_at(string|null $date_updated): self
+    public function setDateUpdated(string|null $date_updated): self
     {
         $this->date_updated = $date_updated;
 
@@ -354,19 +354,19 @@ class Animal extends DefaultEntity
      * @return array
      */
     public function jsonSerialize(): array
-     {
-         return [
-             'id' => $this->getId(),
-             'name' => ucfirst($this->getName()),
-             'age' => $this->getAge(),
-             'colors' => $this->getColors(),
-             'sexe' => $this->getSexe(),
-             'race' => ucfirst($this->getRace()),
-             'category_id' => $this->getCategoryId(),
-             'date_creation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
-             'date_updated' => Carbon::parse($this->getDateUpdated())->format('d/m/Y'),
-             'is_adopted' => $this->getIsAdopted(),
-             'pictures' => $this->getPictures(),
-         ];
-     }
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => ucfirst($this->getName()),
+            'age' => $this->getAge(),
+            'colors' => $this->getColors(),
+            'sexe' => $this->getSexe(),
+            'race' => ucfirst($this->getRace()),
+            'category_id' => $this->getCategoryId(),
+            'date_creation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+            'date_updated' => Carbon::parse($this->getDateUpdated())->format('d/m/Y'),
+            'is_adopted' => $this->getIsAdopted(),
+            'pictures' => $this->getPictures(),
+        ];
+    }
 }

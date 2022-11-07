@@ -1,6 +1,11 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { INPUT_OPTIONS } from "./Signin";
+import { Link, useNavigate } from "react-router-dom";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { API_URI, INPUT_OPTIONS } from "../../config";
+import { BaseUser } from "../../types";
 
 interface FormLoginProps extends FieldValues {
     email: string;
@@ -8,11 +13,38 @@ interface FormLoginProps extends FieldValues {
     remember: boolean;
 }
 
-export default function Login() {
+export default function Login({ onLogin }: { onLogin: (user: BaseUser) => void; }) {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async (formValues?: FormLoginProps) => {
-        // send request
+    const onSubmit = async (formValues: FormLoginProps) => {
+        const formData = Object
+            .entries(formValues)
+            .reduce(
+                (formData, [key, value]) => {
+                    formData.append(key, value.toString())
+                    return formData;
+                },
+                new FormData()
+            );
+
+        const request = await fetch(API_URI + '/?controller=user&action=login', {
+            method: 'POST',
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: formData
+        });
+
+        const result = await request.json();
+        if (request.ok) {
+            toast('Connected', { type: 'success' });
+            onLogin(result);
+            navigate('/');
+        } else {
+            toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
+            console.error(result);
+        }
     }
 
     return (
