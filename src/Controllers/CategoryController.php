@@ -8,8 +8,18 @@ use Core\Controller\DefaultController;
 
 class CategoryController extends DefaultController
 {
+    /**
+     * Model category variable
+     *
+     * @var mixed
+     */
     protected mixed $model = CategoryModel::class;
 
+    /**
+     * Entity category variable
+     *
+     * @var mixed
+     */
     protected mixed $entity = Category::class;
 
 }

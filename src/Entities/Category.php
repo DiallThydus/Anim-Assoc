@@ -70,6 +70,11 @@ class Category extends DefaultEntity
         return $this;
     }
 
+    /**
+     * Return an array of all the category's properties.
+     *
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [

@@ -282,6 +282,11 @@ class Product extends DefaultEntity
         return $this;
     }
 
+    /**
+     * Return an array of all the product's properties.
+     *
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [

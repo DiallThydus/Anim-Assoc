@@ -36,6 +36,12 @@ class DefaultModel extends Database
         return $this->getData($stmt, true);
     }
 
+    /**
+     * Delete function
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function delete(int $id): bool
     {
         try {

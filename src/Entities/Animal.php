@@ -348,6 +348,11 @@ class Animal extends DefaultEntity
         return $this;
     }
 
+    /**
+     * Return an array of all the animal's properties.
+     *
+     * @return array
+     */
     public function jsonSerialize(): array
      {
          return [
