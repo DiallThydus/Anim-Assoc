@@ -3,10 +3,10 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
-use Core\Entity\DefaultEntity;
-use JsonSerializable;
 
-class User extends DefaultEntity implements JsonSerializable
+use Core\Entity\DefaultEntity;
+
+class User extends DefaultEntity
 {
     /**
      * User's id
@@ -39,10 +39,10 @@ class User extends DefaultEntity implements JsonSerializable
 
     /**
      * If the user's email is verified.
-     * boolean default 0
-     * @var boolean $email_verified
+     * int default 0
+     * @var int $email_verified
      */
-    private bool $email_verified;
+    private int $email_verified;
 
     /**
      * The user's password.
@@ -109,7 +109,7 @@ class User extends DefaultEntity implements JsonSerializable
 
     public function __construct(array $data = [])
     {
-        if(!empty($data)){
+        if (!empty($data)) {
             $this->hydrate($data);
         }
     }
@@ -211,9 +211,9 @@ class User extends DefaultEntity implements JsonSerializable
     /**
      * Get if the user's email is verified.
      *
-     * @return boolean
+     * @return integer
      */
-    public function getIsEmailVerified(): bool
+    public function getIsEmailVerified(): int
     {
         return $this->email_verified;
     }
@@ -221,10 +221,10 @@ class User extends DefaultEntity implements JsonSerializable
     /**
      * Set if the user's email is verified.
      *
-     * @param bool $email_verified
+     * @param int $email_verified
      * @return User
      */
-    public function setIsEmailVerified(bool $email_verified): self
+    public function setIsEmailVerified(int $email_verified): self
     {
         $this->email_verified = $email_verified;
 
@@ -377,7 +377,7 @@ class User extends DefaultEntity implements JsonSerializable
     {
         $this->role = $role;
 
-            return $this;
+        return $this;
     }
 
     /**
@@ -449,7 +449,7 @@ class User extends DefaultEntity implements JsonSerializable
         return $this;
     }
 
-/**
+    /**
      * Return an array of all the user's properties.
      *
      * @return array

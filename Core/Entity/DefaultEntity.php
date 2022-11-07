@@ -2,7 +2,9 @@
 
 namespace Core\Entity;
 
-class DefaultEntity
+use JsonSerializable;
+
+abstract class DefaultEntity implements JsonSerializable
 {
 
     protected function hydrate($data = []): void
@@ -30,5 +32,4 @@ class DefaultEntity
         }
         return $array;
     }
-
 }

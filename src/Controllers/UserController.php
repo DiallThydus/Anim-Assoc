@@ -18,8 +18,8 @@ class UserController extends DefaultController
     {
         try {
             $data = [
-                'email' => 'test@test.com',
-                'password' => 'POUET5678',
+                'email' => $_POST['email'],
+                'password' => $_POST['password'],
             ];
 
             $user = $this->model->authenticate($data);
