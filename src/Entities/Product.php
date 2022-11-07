@@ -3,10 +3,18 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
-use JsonSerializable;
+use Core\Entity\DefaultEntity;
 
-class Product implements JsonSerializable
+class Product extends DefaultEntity
 {
+    /**
+     * Product's id
+     * PRIMARY KEY UNSIGNED NOT NULLABLE
+     *
+     * @var integer $id
+     */
+    private int $id;
+
     /**
      * Product name.
      *
@@ -19,7 +27,7 @@ class Product implements JsonSerializable
      *
      * @var string
      */
-    private string $description;
+    private string $info;
 
     /**
      * Product price.
@@ -36,25 +44,64 @@ class Product implements JsonSerializable
     private int $quantity;
 
     /**
+     * Product category.
+     *
+     * @var integer
+     */
+    private int $category_id;
+
+    /**
      * Product creation date.
      * datetime NULLABLE default NULL
-     * @var Carbon $created_at
+     * @var string $date_creation
      */
-    private Carbon $created_at;
+    private string $date_creation;
 
     /**
      * Product update date.
      * datetime NULLABLE default NULL
-     * @var Carbon $updated_at
+     * @var string $date_updated
      */
-    private Carbon $updated_at;
+    private string $date_updated;
 
+    /**
+     * Product's image.
+     *
+     * @var string
+     */
+    private string $pictures;
 
-    //name
+    public function __construct(array $data = [])
+    {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
+    }
+
+    /**
+     * Get the value of id
+     */
+    public function getId(): int|null
+    {
+        return $this->id ?? null;
+    }
+
+    /**
+     * Set product's id.
+     * @param int $id
+     * @return self
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     /**
      * Get product name.
      *
-     * @return  string
+     * @return string
      */ 
     public function getName(): string
     {
@@ -64,9 +111,8 @@ class Product implements JsonSerializable
     /**
      * Set product name.
      *
-     * @param  string  $name  Product name.
-     *
-     * @return  self
+     * @param string $name
+     * @return self
      */ 
     public function setName(string $name): self
     {
@@ -75,36 +121,33 @@ class Product implements JsonSerializable
         return $this;
     }
 
-    //description
     /**
      * Get product description.
      *
-     * @return  string
+     * @return string
      */ 
-    public function getDescription(): string
+    public function getInfo(): string
     {
-        return $this->description;
+        return $this->info;
     }
 
     /**
      * Set product description.
      *
-     * @param  string  $description  Product description.
-     *
-     * @return  self
-     */ 
-    public function setDescription(string $description): self
+     * @param string $info
+     * @return self
+     */
+    public function setInfo(string $info): self
     {
-        $this->description = $description;
+        $this->info = $info;
 
         return $this;
     }
 
-    //price
     /**
      * Get product price.
      *
-     * @return  float
+     * @return float
      */ 
     public function getPrice(): float
     {
@@ -114,9 +157,8 @@ class Product implements JsonSerializable
     /**
      * Set product price.
      *
-     * @param  float  $price  Product price.
-     *
-     * @return  self
+     * @param float $price
+     * @return self
      */ 
     public function setPrice(float $price): self
     {
@@ -125,11 +167,10 @@ class Product implements JsonSerializable
         return $this;
     }
 
-    //quantity
     /**
      * Get product quantity.
      *
-     * @return  integer
+     * @return integer
      */ 
     public function getQuantity(): int
     {
@@ -139,9 +180,8 @@ class Product implements JsonSerializable
     /**
      * Set product quantity.
      *
-     * @param  integer  $quantity  Product quantity.
-     *
-     * @return  self
+     * @param integer $quantity
+     * @return self
      */ 
     public function setQuantity($quantity): self
     {
@@ -150,26 +190,48 @@ class Product implements JsonSerializable
         return $this;
     }
 
-    //carbon
+    /**
+     * Get product category.
+     *
+     * @return integer
+     */
+    public function getCategoryId(): int
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * Set product category.
+     *
+     * @param integer $category_id
+     * @return self
+     */
+    public function setCategoryId(int $category_id): self
+    {
+        $this->category_id = $category_id;
+
+        return $this;
+    }
+
     /**
      * Get product creation date.
      *
-     * @return Carbon
+     * @return string
      */
-    public function getCreated_at(): Carbon
+    public function getDateCreation(): string
     {
-        return $this->created_at;
+        return $this->date_creation;
     }
 
     /**
      * Set the product creation date.
      *
-     * @param Carbon $created_at
+     * @param string $date_creation
      * @return Product
      */
-    public function setCreated_at(Carbon $created_at): self
+    public function setDateCreation(string $date_creation): self
     {
-        $this->created_at = $created_at;
+        $this->date_creation = $date_creation;
 
         return $this;
     }
@@ -177,36 +239,61 @@ class Product implements JsonSerializable
     /**
      * Get product update date.
      *
-     * @return Carbon
+     * @return string
      */
-    public function getUpdated_at(): Carbon
+    public function getDateUpdated(): string
     {
-        return $this->updated_at;
+        return $this->date_updated;
     }
 
     /**
      * Set product update date.
      *
-     * @param Carbon $updated_at
+     * @param string $date_updated
      * @return Product
      */
-    public function setUpdated_at(Carbon $updated_at): self
+    public function setDateUpdated(string $date_updated): self
     {
-        $this->updated_at = $updated_at;
+        $this->date_updated = $date_updated;
 
         return $this;
     }
 
-    //Json
+    /**
+     * Get product's image.
+     *
+     * @return string
+     */
+    public function getPictures(): string
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * Set product's image.
+     *
+     * @param string $pictures
+     * @return self
+     */
+    public function setPictures(string $pictures): self
+    {
+        $this->pictures = $pictures;
+
+        return $this;
+    }
+
     public function jsonSerialize(): array
     {
         return [
+            'id' => $this->getId(),
             'name' => $this->getName(),
-            'description' => $this->getDescription(),
+            'info' => $this->getInfo(),
             'price' => $this->getPrice(),
             'quantity' => $this->getQuantity(),
-            'created_at' => $this->getCreated_at(),
-            'updated_at' => $this->getUpdated_at(),
+            'category_id' => $this->getCategoryId(),
+            'date_creation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+            'date_updated' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+            'pictures' => $this->getPictures(),
         ];
     }
 }
