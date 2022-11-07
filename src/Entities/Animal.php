@@ -4,9 +4,18 @@ namespace App\Entities;
 
 use Carbon\Carbon;
 
-use JsonSerializable;
+use Core\Entity\DefaultEntity;
 
-class Animal implements JsonSerializable{
+class Animal extends DefaultEntity
+{
+
+    /**
+     * Animal's id
+     * PRIMARY KEY UNSIGNED NOT NULLABLE
+     *
+     * @var integer $id
+     */
+    private int $id;
 
     /**
      * Animal's name.
@@ -25,47 +34,90 @@ class Animal implements JsonSerializable{
     /**
      * Animal's color.
      *
-     * @var array
+     * @var string
      */
-    private array $color;
+    private string $colors;
 
     /**
      * Animal's sex.
      *male/female
      * @var boolean
      */
-    private bool $sex;
+    private bool $sexe;
 
     /**
      * Animal's species.
      *
      * @var string
      */
-    private string $species;//race
+    private string $race;
+
+    /**
+     * Animal's category.
+     *
+     * @var int
+     */
+    private int $category_id;
+
+    /**
+     * Animal's creation date.
+     *
+     * @var string|null
+     */
+    private string|null $date_creation;
+
+    /**
+     * Animal's updating date.
+     *
+     * @var string|null
+     */
+    private string|null $date_updated;
 
     /**
      * Animal's adopted.
      *yes/no
-     * @var boolean
+     * @var int
      */
-    private bool $adopted;
+    private int $is_adopted;
 
-   /**
-     * Animal's creation date.
-     * datetime NULLABLE default NULL
-     * @var Carbon $created_at
+    /**
+     * Animal's picture.
+     *
+     * @var string
      */
-    private Carbon $created_at;
+    private string $pictures;
 
-     /**
-     * Animal's update date.
-     * datetime NULLABLE default NULL
-     * @var Carbon $updated_at
+    public function __construct(array $data = [])
+    {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
+    }
+
+    /**
+     * Get the value of id
+     *
+     * @return int|null
      */
-    private Carbon $updated_at;
+    public function getId(): int|null
+    {
+        return $this->id ?? null;
+    }
 
+    /**
+     * Set the value of id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
 
-    //name
+        return $this;
+    }
+
     /**
      * Get Animal's name.
      *
@@ -84,11 +136,11 @@ class Animal implements JsonSerializable{
      */
     public function setName(string $name): self
     {
-        $this->name=$name;
+        $this->name = $name;
+
         return $this;
     }
 
-    //age
     /**
      * Get Animal's age.
      *
@@ -107,146 +159,191 @@ class Animal implements JsonSerializable{
      */
     public function setAge(int $age): self
     {
-        $this->age=$age;
+        $this->age = $age;
+
         return $this;
     }
 
-    //color
     /**
      * Get Animal's color.
      *
-     * @return array
+     * @return string
      */
-    public function getColor(): array
+    public function getColors(): string
     {
-        return implode(" ", $this->color);
+        return $this->colors;
     }
 
     /**
      * Set Animal's color.
      *
-     * @param array $color
+     * @param string $colors
      * @return Animal
      */
-    public function setColor(array $color): self
+    public function setColor(string $colors): self
     {
-        $this->color=$color;
+        $this->colors = $colors;
+
         return $this;
     }
 
-    //sex
     /**
      * Get Animal's sex.
      *
-     * @return boolean
+     * @return int
      */
-    public function getSex(): bool
+    public function getSexe(): int
     {
-        return $this->sex;
+        return $this->sexe;
     }
 
     /**
      * Set Animal's sex.
      *
-     * @param boolean $sex
+     * @param int $sexe
      * @return Animal
      */
-    public function setSex(bool $sex): self
+    public function setSexe(int $sexe): self
     {
-        $this->sex=$sex;
+        $this->sexe = $sexe;
+
         return $this;
     }
 
-    //species
     /**
      * Get Animal's species.
      *
      * @return string
      */
-    public function getSpecies(): string 
+    public function getRace(): string
     {
-        return $this->species;
+        return $this->race;
     }
-    
+
     /**
      * Set Animal's species.
      *
-     * @param string $species
+     * @param string $race
      * @return Animal
      */
-    public function setSpecies(string $species): self 
+    public function setRace(string $race): self
     {
-        $this->species=$species;
+        $this->race = $race;
+
         return $this;
     }
 
-    //adopted
+    /**
+     * Get Animal's category.
+     *
+     * @return int
+     */
+    public function getCategoryId(): int
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * Set Animal's category.
+     *
+     * @param int $category_id
+     * @return Animal
+     */
+    public function setCategoryId(int $category_id): self
+    {
+        $this->category_id = $category_id;
+
+        return $this;
+    }
+
     /**
      * Get Animal's adopted.
      *
-     * @return boolean
+     * @return int
      */
-    public function getAdopted(): bool 
+    public function getIsAdopted(): int
     {
-        return $this->adopted;
+        return $this->is_adopted;
     }
-    
+
     /**
      * Set Animal's adopted.
      *
-     * @param boolean $adopted
+     * @param int $is_adopted
      * @return Animal
      */
-    public function setAdopted(bool $adopted): self 
+    public function setIsAdopted(int $is_adopted): self
     {
-        $this->adopted=$adopted;
+        $this->is_adopted = $is_adopted;
+
         return $this;
     }
 
-    //carbon created(ts)
-     /**
+    /**
      * Get Animal's creation date.
      *
-     * @return Carbon
+     * @return string|null
      */
-    public function getCreated_at(): Carbon
+    public function getDateCreation(): string|null
     {
-        return $this->created_at;
+        return $this->date_creation;
     }
 
     /**
      * Set Animal's creation date.
      *
-     * @param Carbon $created_at
+     * @param string|null $date_creation
      * @return Animal
      */
-    public function setCreated_at(Carbon $created_at): self
+    public function setDateCreation(string|null $date_creation): self
     {
-        $this->created_at = $created_at;
+        $this->date_creation = $date_creation;
 
         return $this;
     }
 
-    //carbon update(ts)
-   /**
+    /**
      * Get animal update date.
      *
-     * @return Carbon
+     * @return string|null
      */
-    public function getUpdated_at(): Carbon
+    public function getDateUpdated(): string|null
     {
-        return $this->updated_at;
+        return $this->date_updated;
     }
 
     /**
      * Set animal update date.
      *
-     * @param Carbon $updated_at
+     * @param string|null $date_updated
      * @return Animal
      */
-    public function setUpdated_at(Carbon $updated_at): self
+    public function setUpdated_at(string|null $date_updated): self
     {
-        $this->updated_at = $updated_at;
+        $this->date_updated = $date_updated;
+
+        return $this;
+    }
+
+    /**
+     * Get Animal's picture.
+     *
+     * @return string
+     */
+    public function getPictures(): string
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * Set Animal's picture.
+     *
+     * @param string $pictures
+     * @return Animal
+     */
+    public function setPictures(string $pictures): self
+    {
+        $this->pictures = $pictures;
 
         return $this;
     }
@@ -254,13 +351,17 @@ class Animal implements JsonSerializable{
     public function jsonSerialize(): array
      {
          return [
-             'name' => $this->getName(),
+             'id' => $this->getId(),
+             'name' => ucfirst($this->getName()),
              'age' => $this->getAge(),
-             'sex' => $this->getSex(),
-             'species' => $this->getSpecies(),
-             'adopted' => $this->getAdopted(),
-             'created_at' => $this->getCreated_at(),
-             'updated_at' => $this->getUpdated_at(),
+             'colors' => $this->getColors(),
+             'sexe' => $this->getSexe(),
+             'race' => ucfirst($this->getRace()),
+             'category_id' => $this->getCategoryId(),
+             'date_creation' => Carbon::parse($this->getDateCreation())->format('d/m/Y'),
+             'date_updated' => Carbon::parse($this->getDateUpdated())->format('d/m/Y'),
+             'is_adopted' => $this->getIsAdopted(),
+             'pictures' => $this->getPictures(),
          ];
      }
 }

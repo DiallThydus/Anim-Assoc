@@ -3,10 +3,10 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
-use Core\Entity\DefaultEntity;
-use JsonSerializable;
 
-class User extends DefaultEntity implements JsonSerializable
+use Core\Entity\DefaultEntity;
+
+class User extends DefaultEntity
 {
     /**
      * User's id
