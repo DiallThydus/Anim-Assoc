@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Entities\Animal;
+use App\Models\AnimalModel;
 use Core\Controller\DefaultController;
 
 class AnimalController extends DefaultController
