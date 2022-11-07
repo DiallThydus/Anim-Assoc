@@ -78,8 +78,8 @@ class DefaultController implements ControllerInterface
                 $data['donation'] = 0;
             }
 
-            $data['date_creation'] = $carbon->toDateTimeString();
-            $data['date_updated'] = NULL;
+            $data['dateCreation'] = $carbon->toDateTimeString();
+            $data['dateUpdated'] = NULL;
 
             $entityObj = new $this->entity($data);
             $newEntityId = $this->model->save($entityObj);
@@ -102,7 +102,7 @@ class DefaultController implements ControllerInterface
                 $data[$key] = $value;
             }
 
-            $data['date_updated'] = $carbon->toDateTimeString();
+            $data['dateUpdated'] = $carbon->toDateTimeString();
 
             $entityName = substr($this->entity, 13);
             $entityObj = new $this->entity($data);

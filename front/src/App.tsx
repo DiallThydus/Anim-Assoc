@@ -3,8 +3,6 @@ import { ToastContainer } from 'react-toastify';
 
 import Navbar from "./components/navbar/Navbar";
 
-import Navbar from "./components/navbar/Navbar";
-
 import Login from './components/auth/Login';
 import Signin from './components/auth/Signin';
 import Cart from "./components/Cart/Cart";

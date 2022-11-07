@@ -1,5 +1,9 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { INPUT_OPTIONS } from "./Signin";
 
 interface FormLoginProps extends FieldValues {
@@ -8,11 +12,40 @@ interface FormLoginProps extends FieldValues {
     remember: boolean;
 }
 
+export const API_URI = 'http://localhost';
+
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async (formValues?: FormLoginProps) => {
-        // send request
+    const onSubmit = async (formValues: FormLoginProps) => {
+        const formData = Object
+            .entries(formValues)
+            .reduce(
+                (formData, [key, value]) => {
+                    formData.append(key, value.toString())
+                    return formData;
+                },
+                new FormData()
+            );
+
+        const request = await fetch(API_URI + '/?controller=user&action=login', {
+            method: 'POST',
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: formData
+        });
+        console.log(request);
+
+        const result = await request.json();
+        if (request.ok) {
+            // todo: save user's informations
+            toast(result?.message || 'Connected', { type: 'success' });
+            console.log(result);
+        } else {
+            toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
+            console.error(result);
+        }
     }
 
     return (

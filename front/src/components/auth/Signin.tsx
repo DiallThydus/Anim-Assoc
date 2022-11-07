@@ -28,7 +28,7 @@ export const INPUT_OPTIONS = {
 	maxLength: 150
 } as RegisterOptions;
 
-export const API_URI = 'http://localhost:8888/';
+export const API_URI = 'http://localhost';
 
 export default function Signin() {
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
@@ -41,10 +41,6 @@ export default function Signin() {
 			});
 		}
 
-		const headers = new Headers();
-		headers.set('Access-Control-Allow-Origin', '*');
-		headers.set('Content-Type', 'application/json');
-
 		const formData = Object
 			.entries(formValues)
 			.reduce(
@@ -56,22 +52,22 @@ export default function Signin() {
 			);
 
 		// todo: fix cors
-		const request = await fetch('http://localhost/', {
+		const request = await fetch(API_URI + '/?controller=user&action=register', {
 			method: 'POST',
-			mode: 'no-cors',
-			headers,
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			},
 			body: formData
 		});
-
 		console.log(request);
-		setTimeout(() => {
-			console.log(request);
-		}, 1000);
 
+		const result = await request.json();
 		if (request.ok) {
-			toast('Account successfully created', { type: 'success' });
+			toast(result?.message || 'Account successfully created', { type: 'success' });
+			console.log(result);
 		} else {
-			toast('Something went wront during account creation', { type: 'error' });
+			toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
+			console.error(result);
 		}
 	};
 
