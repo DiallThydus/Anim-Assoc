@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react';
+import { API_URI } from '../../config';
 import { Animal } from '../../types';
 import FicheAnimal from './CardAnimal';
-import data from './data.json';
 
 export default function ListAnimals() {
-	const [animals] = useState<Animal[]>(data.animals as Animal[]);
+	const [animals, setAnimals] = useState<Animal[]>();
 
 	useEffect(() => {
 		(async () => {
-			const headers = new Headers();
-			headers.set('Access-Control-Allow-Origin', '*');
-			headers.set('Content-Type', 'application/json');
-
-			// todo: fetch good endpoint
-			const request = await fetch('http://localhost/animals', {
-				mode: 'no-cors',
-				headers
+			const request = await fetch(API_URI + '/?controller=animal&action=index', {
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
 			});
 
-			request
-				.json()
-				.then(console.log)
-				.catch(console.error);
+			const result = await request.json();
+			if (request.ok) {
+				setAnimals(result as Animal[]);
+			} else {
+				console.log('error', result);
+				console.error(result);
+			}
 		})();
 	}, [])
 

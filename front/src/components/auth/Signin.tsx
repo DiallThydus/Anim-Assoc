@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { API_URI } from '../../config';
+
 interface FormSigninProps extends FieldValues {
 	firstName: string;
 	lastName: string;
@@ -27,8 +29,6 @@ export const INPUT_OPTIONS = {
 	minLength: 0,
 	maxLength: 150
 } as RegisterOptions;
-
-export const API_URI = 'http://localhost';
 
 export default function Signin() {
 	const { register, setError, handleSubmit, formState: { errors } } = useForm();
@@ -59,12 +59,10 @@ export default function Signin() {
 			},
 			body: formData
 		});
-		console.log(request);
 
 		const result = await request.json();
 		if (request.ok) {
 			toast(result?.message || 'Account successfully created', { type: 'success' });
-			console.log(result);
 		} else {
 			toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
 			console.error(result);

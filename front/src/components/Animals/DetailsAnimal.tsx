@@ -1,32 +1,40 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { API_URI } from "../../config";
 import { Animal } from "../../types";
-import data from './data.json';
 
 export default function DetailsAnimal() {
     const { animalId } = useParams();
     const [animal, setAnimal] = useState<Animal | undefined>(undefined);
 
     useEffect(() => {
-        // fetch les données
-        const animal = data.animals.find((a) => a.id === Number(animalId));
-        if (!animal) {
-            return console.error('Unable to find animal with id', animalId);
-        }
+        (async () => {
+            const request = await fetch(`${API_URI}/?controller=animal&action=show&id=${animalId}`, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
 
-        setAnimal(animal);
+            const result = await request.json();
+            if (request.ok) {
+                setAnimal(result);
+            } else {
+                console.log('error', result)
+                console.error(result);
+            }
+        })();
     }, [animalId]);
 
     if (!animal) {
         return (<p>loading...</p>)
     }
 
-    const { name, age, colors, sexe, race, image } = animal;
+    const { name, age, colors, sexe, race, pictures } = animal;
     return (
         <div className="flex justify-center mobile:flex-col mobile:mt-4 mobile:p-3">
             <div className="flex-1 flex items-center justify-center">
                 <img
-                    src={`/images/${image}`}
+                    src={`/images/${pictures}`}
                     className="product_img"
                     alt="product_image"
                 />
@@ -39,7 +47,7 @@ export default function DetailsAnimal() {
                     Age: {age}
                 </p>
                 <p className="text-xl normal-case">
-                    Colors: {colors.join(', ')}
+                    Colors: {colors}
                 </p>
                 <p className="text-xl normal-case">
                     Sexe: {sexe === 0 ? 'Male' : 'Female'}

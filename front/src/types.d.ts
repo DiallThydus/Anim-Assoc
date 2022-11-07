@@ -5,5 +5,9 @@ export interface Animal {
     colors: string[];
     sexe: number;
     race: string;
-    image: string;
+    pictures: string;
+    category_id: number;
+    date_creation: string;
+    date_updated: string;
+    is_adopted: number;
 }

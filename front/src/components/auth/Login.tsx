@@ -5,14 +5,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { INPUT_OPTIONS } from "./Signin";
+import { API_URI } from "../../config";
 
 interface FormLoginProps extends FieldValues {
     email: string;
     password: string;
     remember: boolean;
 }
-
-export const API_URI = 'http://localhost';
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -35,13 +34,11 @@ export default function Login() {
             },
             body: formData
         });
-        console.log(request);
 
         const result = await request.json();
         if (request.ok) {
             // todo: save user's informations
             toast(result?.message || 'Connected', { type: 'success' });
-            console.log(result);
         } else {
             toast(result?.[0] || 'Something went wront during account creation', { type: 'error' });
             console.error(result);
