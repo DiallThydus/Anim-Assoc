@@ -6,7 +6,7 @@ use App\Services\Responser;
 use Carbon\Carbon;
 use Exception;
 
-class DefaultController implements Controller
+class DefaultController implements ControllerInterface
 {
     protected mixed $model;
 

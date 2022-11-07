@@ -2,7 +2,7 @@
 
 namespace Core\Controller;
 
-interface Controller
+interface ControllerInterface
 {
     public function __construct();
     public function index(): void;
