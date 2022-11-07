@@ -7,6 +7,7 @@ use App\Controllers\CategoryController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\UserController;
+use App\Services\Responser;
 use Exception;
 
 class Routeur
@@ -53,6 +54,9 @@ class Routeur
                             case 'show':
                                 (new ProductController)->show();
                                 break;
+                            case 'create':
+                                (new ProductController)->create();
+                                break;
                             case 'update':
                                 (new ProductController)->update();
                                 break;
@@ -71,6 +75,9 @@ class Routeur
                                 break;
                             case 'show':
                                 (new CategoryController)->show();
+                                break;
+                            case 'create':
+                                (new CategoryController)->create();
                                 break;
                             case 'update':
                                 (new CategoryController)->update();
@@ -91,6 +98,9 @@ class Routeur
                             case 'show':
                                 (new AnimalController)->show();
                                 break;
+                            case 'create':
+                                (new AnimalController)->create();
+                                break;
                             case 'update':
                                 (new AnimalController)->update();
                                 break;
@@ -107,7 +117,7 @@ class Routeur
                         break;
                 }
             } else {
-                echo 'pouet';
+                Responser::response(['Les paramètres $_GET["controller"] & $_GET["action"] sont manquants'], 404);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
